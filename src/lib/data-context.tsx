@@ -129,8 +129,33 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
 
   const featuredProducts = products.filter(p => p.featured);
 
-  const getProduct = useCallback((slug: string) => {
-    return products.find(p => p.slug === slug);
+  const getProduct = useCallback((slugOrId: string) => {
+    if (!slugOrId) return undefined;
+    const clean = decodeURIComponent(slugOrId).toLowerCase().trim();
+    
+    // 1. Direct slug match
+    let found = products.find(p => p.slug?.toLowerCase() === clean);
+    if (found) return found;
+
+    // 2. Direct ID or SKU match
+    found = products.find(p => p.id?.toLowerCase() === clean || p.sku?.toLowerCase() === clean);
+    if (found) return found;
+
+    // 3. ID without "sm-" prefix or with "sm-"
+    found = products.find(p => {
+      const idNum = p.id?.replace(/^sm-/, '').toLowerCase();
+      return clean === idNum || clean === `sm-${idNum}`;
+    });
+    if (found) return found;
+
+    // 4. Suffix / prefix / fuzzy slug matching (e.g. "luxury-hotel-fragrance-oil-527" -> "luxury-hotel-fragrance-oil")
+    found = products.find(p => {
+      const pSlug = p.slug?.toLowerCase() || '';
+      return pSlug && (clean.startsWith(pSlug) || pSlug.startsWith(clean));
+    });
+    if (found) return found;
+
+    return undefined;
   }, [products]);
 
   const getProductsByCategory = useCallback((categoryId: string) => {

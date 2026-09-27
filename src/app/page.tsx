@@ -63,9 +63,9 @@ export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   // Selected Featured Products for Showcase (1 large + 2 stacked)
-  const featuredLarge = products.find((p) => p.slug === 'luxury-hotel-fragrance-oil-527') || products[0];
-  const featuredStacked1 = products.find((p) => p.slug === 'basil-essential-oil-192') || products[1];
-  const featuredStacked2 = products.find((p) => p.slug === 'bergamot-fragrance-oil-for-candle-making-563') || products[2];
+  const featuredLarge = products.find((p) => p.slug === 'luxury-hotel-fragrance-oil' || p.id === 'sm-527') || products[0];
+  const featuredStacked1 = products.find((p) => p.slug === 'basil-essential-oil' || p.id === 'sm-192') || products[1];
+  const featuredStacked2 = products.find((p) => p.slug === 'bergamot-fragrance-oil-for-candle-making' || p.id === 'sm-563') || products[2];
 
   // Live Hero Search Suggestions (max 5)
   const heroSuggestions = useMemo(() => {
@@ -330,20 +330,20 @@ export default function HomePage() {
               className="relative z-20 w-[270px] sm:w-[300px] md:w-[320px] max-w-[92%]"
             >
               <Link
-                href="/product/luxury-hotel-fragrance-oil-527"
+                href={`/product/${featuredLarge?.slug || 'luxury-hotel-fragrance-oil'}`}
                 className="block rounded-[var(--radius-lg)] bg-white border border-[#E6E2D9] hover:border-[#B89B6A] p-4 sm:p-5 shadow-xl hover:shadow-2xl transition-all duration-300 group cursor-pointer"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[9px] font-mono font-bold tracking-widest uppercase bg-[#FAFAF7] text-[#171717] group-hover:bg-[#171717] group-hover:text-white px-2.5 py-0.5 rounded border border-[#E6E2D9] transition-colors">
                     SIGNATURE BLEND
                   </span>
-                  <span className="font-mono text-[10px] text-[#686660] font-semibold">SMI-0527</span>
+                  <span className="font-mono text-[10px] text-[#686660] font-semibold">{featuredLarge?.sku || 'SMI-0527'}</span>
                 </div>
 
                 <div className="relative w-full h-[180px] sm:h-[220px] my-2 flex items-center justify-center bg-[#FAFAF7]/60 rounded-[var(--radius-md)] overflow-hidden">
                   <Image
-                    src="/products/images/luxury-hotel-fragrance-oil-527-1.jpg"
-                    alt="Luxury Hotel Fragrance Oil"
+                    src={featuredLarge?.images?.[0] || '/products/images/luxury-hotel-fragrance-oil-527-1.jpg'}
+                    alt={featuredLarge?.name || 'Luxury Hotel Fragrance Oil'}
                     fill
                     priority
                     sizes="(max-width: 768px) 280px, 320px"
@@ -354,7 +354,7 @@ export default function HomePage() {
                 <div className="flex items-center justify-between pt-3 border-t border-[#E6E2D9]">
                   <div>
                     <p className="font-serif font-bold text-sm sm:text-base text-[#171717] group-hover:text-[#B89B6A] transition-colors">
-                      Luxury Hotel Fragrance Oil
+                      {featuredLarge?.name || 'Luxury Hotel Fragrance Oil'}
                     </p>
                     <p className="text-[10px] font-mono text-[#686660] tracking-wider uppercase">
                       Ambient Scenting • Cold Mist
@@ -375,21 +375,23 @@ export default function HomePage() {
               transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
               className="absolute left-1 sm:left-4 -bottom-3 z-10 w-[160px] sm:w-[200px] rounded-[var(--radius-lg)] bg-white/95 backdrop-blur-md border border-[#E6E2D9] hover:border-[#B89B6A] p-3 shadow-lg hidden sm:block group transition-all"
             >
-              <Link href="/product/basil-essential-oil-192" className="block">
+              <Link href={`/product/${featuredStacked1?.slug || 'basil-essential-oil'}`} className="block">
                 <span className="text-[8px] font-mono font-bold uppercase tracking-wider text-[#686660] block mb-1">
                   100% STEAM DISTILLED
                 </span>
                 <div className="relative w-full h-[130px] my-1">
                   <Image
-                    src="/products/images/basil-essential-oil-192-1.jpg"
-                    alt="Basil Essential Oil"
+                    src={featuredStacked1?.images?.[0] || '/products/images/basil-essential-oil-192-1.jpg'}
+                    alt={featuredStacked1?.name || 'Basil Essential Oil'}
                     fill
                     sizes="200px"
                     className="object-contain p-1 group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="flex items-center justify-between pt-1 border-t border-[#E6E2D9]/70">
-                  <p className="font-serif font-bold text-xs text-[#171717] truncate group-hover:text-[#B89B6A]">Basil Essential Oil</p>
+                  <p className="font-serif font-bold text-xs text-[#171717] truncate group-hover:text-[#B89B6A]">
+                    {featuredStacked1?.name || 'Basil Essential Oil'}
+                  </p>
                   <ArrowUpRight className="w-3 h-3 text-[#686660] group-hover:text-[#171717]" />
                 </div>
               </Link>
@@ -403,21 +405,23 @@ export default function HomePage() {
               transition={{ duration: 1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
               className="absolute right-1 sm:right-4 -top-3 z-10 w-[160px] sm:w-[200px] rounded-[var(--radius-lg)] bg-white/95 backdrop-blur-md border border-[#E6E2D9] hover:border-[#B89B6A] p-3 shadow-lg hidden sm:block group transition-all"
             >
-              <Link href="/product/bergamot-fragrance-oil-for-candle-making-563" className="block">
+              <Link href={`/product/${featuredStacked2?.slug || 'bergamot-fragrance-oil-for-candle-making'}`} className="block">
                 <span className="text-[8px] font-mono font-bold uppercase tracking-wider text-[#686660] block mb-1">
                   HIGH FLASHPOINT OIL
                 </span>
                 <div className="relative w-full h-[130px] my-1">
                   <Image
-                    src="/products/images/bergamot-fragrance-oil-for-candle-making-563-1.jpg"
-                    alt="Bergamot Candle Fragrance"
+                    src={featuredStacked2?.images?.[0] || '/products/images/bergamot-fragrance-oil-for-candle-making-563-1.jpg'}
+                    alt={featuredStacked2?.name || 'Bergamot Candle Fragrance'}
                     fill
                     sizes="200px"
                     className="object-contain p-1 group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="flex items-center justify-between pt-1 border-t border-[#E6E2D9]/70">
-                  <p className="font-serif font-bold text-xs text-[#171717] truncate group-hover:text-[#B89B6A]">Bergamot Candle Oil</p>
+                  <p className="font-serif font-bold text-xs text-[#171717] truncate group-hover:text-[#B89B6A]">
+                    {featuredStacked2?.name || 'Bergamot Candle Oil'}
+                  </p>
                   <ArrowUpRight className="w-3 h-3 text-[#686660] group-hover:text-[#171717]" />
                 </div>
               </Link>

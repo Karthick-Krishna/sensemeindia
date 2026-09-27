@@ -70,7 +70,7 @@ const PROCESS_STEPS = [
 
 export default function ManufacturingPage() {
   return (
-    <div className="pt-32 pb-32 bg-[#FAFAF7] text-[#171717] min-h-screen">
+    <div className="pt-20 sm:pt-28 pb-20 sm:pb-32 bg-[#FAFAF7] text-[#171717] min-h-screen">
       {/* 01 — HERO */}
       <section className="container-editorial mb-20">
         <div className="max-w-4xl space-y-6">

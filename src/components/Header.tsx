@@ -67,7 +67,7 @@ export default function Header() {
 
   return (
     <>
-      {/* Pinned Top Navigation Wrapper (0 gap on mobile & desktop) */}
+      {/* Pinned Top Navigation Wrapper */}
       <div className="fixed top-0 left-0 right-0 z-50 flex flex-col">
         {/* Top Announcement Bar (Desktop & Tablet) */}
         <div className="hidden sm:block bg-[#F2F0EA] text-[#171717] py-1.5 px-4 text-center text-[11px] font-mono uppercase tracking-[0.18em] font-semibold border-b border-[#E6E2D9]">
@@ -115,7 +115,7 @@ export default function Header() {
                   pathname === '/shop' ? 'active text-[#171717]' : 'text-[#686660] hover:text-[#171717]'
                 }`}
               >
-                Shop
+                Shop All
               </Link>
 
               {/* Collections Mega Menu */}
@@ -151,12 +151,12 @@ export default function Header() {
                       className="fixed left-0 right-0 top-full bg-[#FFFFFF] border-b border-[#E6E2D9] shadow-xl z-50 py-10"
                     >
                       <div className="container-editorial grid grid-cols-12 gap-8">
-                        {/* Left: 6 Discipline Collections */}
+                        {/* Left: 6 Discipline Collections linking to /shop?category=... */}
                         <div className="col-span-8 grid grid-cols-2 gap-4 border-r border-[#E6E2D9] pr-8">
                           {categories.map((cat, idx) => (
                             <Link
                               key={cat.id}
-                              href={`/category/${cat.slug}`}
+                              href={`/shop?category=${cat.slug}`}
                               className="group/cat flex items-start gap-4 p-3.5 hover:bg-[#FAFAF7] transition-colors rounded"
                             >
                               <span className="font-serif text-lg font-bold text-[#B89B6A] group-hover/cat:text-[#171717] transition-colors">
@@ -394,13 +394,16 @@ export default function Header() {
             {/* Mobile Dedicated Navigation Links */}
             <div className="my-auto py-8 space-y-4 font-serif text-2xl sm:text-3xl font-bold">
               {[
-                { name: 'Shop', href: '/shop' },
-                { name: 'Collections', href: '/shop' },
+                { name: 'Shop All', href: '/shop' },
+                { name: 'Essential Oils', href: '/shop?category=essential-oils' },
+                { name: 'Diffuser Blends', href: '/shop?category=diffuser-blends' },
+                { name: 'Fragrance Oils', href: '/shop?category=fragrance-oils' },
+                { name: 'Candle Making', href: '/shop?category=candle-making' },
                 { name: 'Manufacturing', href: '/manufacturing' },
                 { name: 'Applications', href: '/applications' },
-                { name: 'About', href: '/about' },
-                { name: 'Business', href: '/wholesale' },
-                { name: 'Contact', href: '/contact' },
+                { name: 'About SenseMe', href: '/about' },
+                { name: 'Business B2B', href: '/wholesale' },
+                { name: 'Contact Lab', href: '/contact' },
               ].map((item) => (
                 <div key={item.name} className="border-b border-[#E6E2D9]/60 pb-3">
                   <Link

@@ -61,11 +61,11 @@ export default function Footer() {
       title: 'PRODUCTS',
       links: [
         { name: 'All 195+ Formulations', href: '/shop' },
-        { name: 'Essential Oils', href: '/category/essential-oils' },
-        { name: 'Diffuser Blends', href: '/category/diffuser-blends' },
-        { name: 'Fragrance Oils', href: '/category/fragrance-oils' },
-        { name: 'Candle Making', href: '/category/candle-making' },
-        { name: 'Diffuser Machines', href: '/category/diffuser-machines' },
+        { name: 'Essential Oils', href: '/shop?category=essential-oils' },
+        { name: 'Diffuser Blends', href: '/shop?category=diffuser-blends' },
+        { name: 'Fragrance Oils', href: '/shop?category=fragrance-oils' },
+        { name: 'Candle Making', href: '/shop?category=candle-making' },
+        { name: 'Diffuser Machines', href: '/shop?category=diffuser-machines' },
       ],
     },
     {

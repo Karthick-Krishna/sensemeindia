@@ -144,7 +144,7 @@ export default function ProductPage() {
           {product.categoryName && (
             <>
               <ChevronRight className="w-3 h-3 flex-shrink-0 text-[#686660]/60" />
-              <Link href={`/category/${product.categoryId}`} className="hover:text-[#171717] transition-colors flex-shrink-0">
+              <Link href={`/shop?category=${product.categoryId}`} className="hover:text-[#171717] transition-colors flex-shrink-0">
                 {product.categoryName}
               </Link>
             </>
@@ -505,7 +505,7 @@ export default function ProductPage() {
                 YOU MAY ALSO DISCOVER
               </span>
               <Link
-                href={`/category/${product.categoryId}`}
+                href={`/shop?category=${product.categoryId}`}
                 className="text-xs font-mono font-bold text-[#171717] hover:text-[#B89B6A] uppercase tracking-wider flex items-center gap-1 transition-colors"
               >
                 View Category <ArrowRight className="w-3.5 h-3.5" />

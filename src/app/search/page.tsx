@@ -15,7 +15,7 @@ function SearchResults() {
   const results = query ? searchProducts(query) : [];
 
   return (
-    <div className="pt-32 pb-32 bg-[#FAFAF7] text-[#171717] min-h-screen">
+    <div className="pt-20 sm:pt-28 pb-20 sm:pb-32 bg-[#FAFAF7] text-[#171717] min-h-screen">
       <div className="container-editorial">
         {/* Top Header */}
         <div className="border-b border-[#E6E2D9] pb-8 mb-12">

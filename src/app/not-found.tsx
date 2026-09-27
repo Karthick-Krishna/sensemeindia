@@ -6,13 +6,13 @@ import { ArrowRight, Compass, Sparkles } from 'lucide-react';
 
 export default function NotFound() {
   return (
-    <div className="pt-32 pb-32 min-h-screen flex items-center justify-center bg-[#F8F7F3] text-[#111111] px-6">
+    <div className="pt-20 sm:pt-28 pb-20 sm:pb-32 min-h-screen flex items-center justify-center bg-[#FAFAF7] text-[#171717] px-6">
       <div className="max-w-xl text-center space-y-8">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
-          className="w-20 h-20 mx-auto rounded-full bg-white border border-[#E0DAD0] flex items-center justify-center shadow-subtle text-[#8C7456]"
+          className="w-20 h-20 mx-auto rounded-full bg-white border border-[#E6E2D9] flex items-center justify-center shadow-subtle text-[#B89B6A]"
         >
           <Compass className="w-8 h-8 animate-spin" style={{ animationDuration: '30s' }} />
         </motion.div>

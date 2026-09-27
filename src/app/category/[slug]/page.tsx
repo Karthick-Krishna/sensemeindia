@@ -32,16 +32,16 @@ export default function CategoryPage() {
   const otherCategories = categories.filter((c) => c.id !== category.id);
 
   return (
-    <div className="pt-32 pb-32 bg-[#FAFAF7] min-h-screen text-[#171717]">
+    <div className="pt-20 sm:pt-28 pb-20 sm:pb-32 bg-[#FAFAF7] min-h-screen text-[#171717]">
       <div className="container-editorial">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs font-mono text-[#686660] mb-8 uppercase tracking-wider">
+        <div className="flex items-center gap-2 text-xs font-mono text-[#686660] mb-6 sm:mb-8 uppercase tracking-wider">
           <Link href="/" className="hover:text-[#171717] transition-colors">
             Home
           </Link>
           <ChevronRight className="w-3 h-3" />
           <Link href="/shop" className="hover:text-[#171717] transition-colors">
-            Collections
+            Catalogue
           </Link>
           <ChevronRight className="w-3 h-3" />
           <span className="text-[#171717] font-bold">{category.name}</span>

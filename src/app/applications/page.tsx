@@ -118,7 +118,7 @@ export default function ApplicationsPage() {
   });
 
   return (
-    <div className="pt-32 pb-32 bg-[#FAFAF7] text-[#171717] min-h-screen">
+    <div className="pt-20 sm:pt-28 pb-20 sm:pb-32 bg-[#FAFAF7] text-[#171717] min-h-screen">
       {/* 01 — HERO */}
       <section className="container-editorial mb-16">
         <div className="max-w-3xl space-y-4">
@@ -215,10 +215,10 @@ export default function ApplicationsPage() {
                   RECOMMENDED SENSEME FORMULATIONS ({matchedProducts.length})
                 </span>
                 <Link
-                  href={`/category/${currentApp.categoryFilter}`}
+                  href={`/shop?category=${currentApp.categoryFilter}`}
                   className="text-xs font-mono font-bold text-[#171717] hover:text-[#B89B6A] uppercase tracking-wider flex items-center gap-1 transition-colors"
                 >
-                  View Category Portal <ArrowRight className="w-3.5 h-3.5" />
+                  View Category Formulations <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
 

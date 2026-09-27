@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useData } from '@/lib/data-context';
 import { generateWholesaleWhatsAppMessage, generateWhatsAppUrl } from '@/lib/whatsapp';
 import {
@@ -57,9 +58,20 @@ export default function WholesalePage() {
       <div className="container-editorial">
         {/* Header */}
         <div className="border-b border-[#E6E2D9] pb-12 mb-16 max-w-4xl space-y-4">
-          <span className="font-mono text-xs tracking-[0.3em] uppercase text-[#B89B6A] font-bold block">
-            MANUFACTURER SUPPLY & VOLUME PROCUREMENT
-          </span>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-white border border-[#E6E2D9] p-1 flex items-center justify-center shadow-2xs">
+              <Image
+                src="/logo-transparent.png"
+                alt="SenseMe Industrial Supply Seal"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
+            </div>
+            <span className="font-mono text-xs tracking-[0.3em] uppercase text-[#B89B6A] font-bold">
+              MANUFACTURER SUPPLY & VOLUME PROCUREMENT
+            </span>
+          </div>
           <h1 className="font-serif text-5xl sm:text-7xl font-bold tracking-tight text-[#171717] leading-[0.96]">
             Built for Business. <br />
             <span className="font-editorial italic font-normal text-[#B89B6A]">

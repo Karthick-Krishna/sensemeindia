@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useData } from '@/lib/data-context';
 import { MapPin, Phone, Mail, MessageCircle, Send, CheckCircle2 } from 'lucide-react';
 import { generateWhatsAppUrl } from '@/lib/whatsapp';
@@ -43,9 +44,20 @@ export default function ContactPage() {
       <div className="container-editorial">
         {/* Header */}
         <div className="border-b border-[#E6E2D9] pb-12 mb-16 max-w-4xl space-y-4">
-          <span className="font-mono text-xs tracking-[0.3em] uppercase text-[#B89B6A] font-bold block">
-            DIRECT STUDIO & TRADE INQUIRIES
-          </span>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-white border border-[#E6E2D9] p-1 flex items-center justify-center shadow-2xs">
+              <Image
+                src="/logo-transparent.png"
+                alt="SenseMe Desk Seal"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
+            </div>
+            <span className="font-mono text-xs tracking-[0.3em] uppercase text-[#B89B6A] font-bold">
+              DIRECT STUDIO & TRADE INQUIRIES
+            </span>
+          </div>
           <h1 className="font-serif text-5xl sm:text-7xl font-bold tracking-tight text-[#171717] leading-[0.96]">
             Get in Touch with <br />
             <span className="font-editorial italic font-normal text-[#B89B6A]">
@@ -61,9 +73,20 @@ export default function ContactPage() {
           {/* Left Info Column */}
           <div className="lg:col-span-5 space-y-8">
             <div className="p-8 rounded-[var(--radius-xl)] bg-white border border-[#E6E2D9] shadow-sm space-y-6">
-              <h3 className="font-serif text-2xl font-bold text-[#171717]">
-                Coimbatore Supply Desk
-              </h3>
+              <div className="flex items-center justify-between border-b border-[#E6E2D9] pb-4">
+                <h3 className="font-serif text-2xl font-bold text-[#171717]">
+                  Coimbatore Supply Desk
+                </h3>
+                <div className="w-9 h-9 rounded-lg bg-[#FAFAF7] border border-[#E6E2D9] p-1 flex items-center justify-center">
+                  <Image
+                    src="/logo-transparent.png"
+                    alt="SenseMe India"
+                    width={28}
+                    height={28}
+                    className="object-contain"
+                  />
+                </div>
+              </div>
 
               <div className="space-y-4 text-xs md:text-sm font-sans text-[#686660]">
                 <div className="flex items-start gap-3">

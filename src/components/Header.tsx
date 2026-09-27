@@ -99,13 +99,30 @@ export default function Header() {
         >
           <div className="container-editorial flex items-center justify-between">
             {/* Left: SenseMe Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <span className="font-serif text-2xl sm:text-3xl font-bold tracking-tight text-[#171717] group-hover:text-[#B89B6A] transition-colors">
-                SenseMe
-              </span>
-              <span className="font-mono text-[9px] tracking-[0.24em] uppercase text-[#686660] border-l border-[#E6E2D9] pl-2.5 pt-0.5 font-bold">
-                INDIA
-              </span>
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-white border border-[#E6E2D9] p-1 flex items-center justify-center shadow-2xs group-hover:border-[#B89B6A] transition-all group-hover:scale-105">
+                <Image
+                  src="/logo-transparent.png"
+                  alt="SenseMe India Official Logo"
+                  width={36}
+                  height={36}
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2">
+                  <span className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-[#171717] group-hover:text-[#B89B6A] transition-colors leading-none">
+                    SenseMe
+                  </span>
+                  <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-[#686660] border-l border-[#E6E2D9] pl-2 font-bold">
+                    INDIA
+                  </span>
+                </div>
+                <span className="font-mono text-[8px] tracking-[0.16em] uppercase text-[#B89B6A] font-semibold mt-0.5 hidden xs:block">
+                  Pure Essential Oils
+                </span>
+              </div>
             </Link>
 
             {/* Center: Desktop Navigation Links */}
@@ -384,14 +401,30 @@ export default function Header() {
           >
             {/* Mobile Header Top */}
             <div className="flex items-center justify-between border-b border-[#E6E2D9] pb-5">
-              <div className="flex items-center gap-2">
-                <span className="font-serif text-2xl font-bold text-[#171717]">
-                  SenseMe
-                </span>
-                <span className="text-[#B89B6A] text-[10px] font-mono font-bold tracking-widest uppercase border-l border-[#E6E2D9] pl-2">
-                  INDIA
-                </span>
-              </div>
+              <Link href="/" onClick={() => setMobileNavOpen(false)} className="flex items-center gap-3">
+                <div className="relative w-10 h-10 rounded-lg bg-white border border-[#E6E2D9] p-1 flex items-center justify-center shadow-2xs">
+                  <Image
+                    src="/logo-transparent.png"
+                    alt="SenseMe India Logo"
+                    width={36}
+                    height={36}
+                    className="object-contain"
+                  />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-serif text-2xl font-bold text-[#171717]">
+                      SenseMe
+                    </span>
+                    <span className="text-[#B89B6A] text-[10px] font-mono font-bold tracking-widest uppercase border-l border-[#E6E2D9] pl-2">
+                      INDIA
+                    </span>
+                  </div>
+                  <span className="font-mono text-[8px] tracking-[0.16em] uppercase text-[#686660] block">
+                    Pure Essential Oils
+                  </span>
+                </div>
+              </Link>
               <button
                 onClick={() => setMobileNavOpen(false)}
                 className="p-2.5 rounded-full bg-[#F2F0EA] text-[#171717] hover:bg-[#E6E2D9] transition-colors"

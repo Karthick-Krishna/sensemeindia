@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { useAdminAuth } from '@/lib/admin-auth';
 import { Shield, Sparkles, ArrowRight, Lock, Mail } from 'lucide-react';
 import Link from 'next/link';
@@ -53,11 +54,23 @@ export default function AdminLoginPage() {
 
       <div className="w-full max-w-md relative z-10">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-block mb-3">
-            <span className="font-heading text-3xl font-bold text-brand-900">SenseMe</span>
-            <span className="font-heading text-xs uppercase tracking-widest text-brand-500 font-semibold ml-1.5 px-2 py-0.5 bg-brand-50 rounded-full">
-              Portal
-            </span>
+          <Link href="/" className="inline-flex flex-col items-center gap-2 mb-3 group">
+            <div className="w-16 h-16 rounded-2xl bg-white border border-[#E6E2D9] p-2 flex items-center justify-center shadow-md group-hover:scale-105 transition-all">
+              <Image
+                src="/logo-transparent.png"
+                alt="SenseMe India Official Logo"
+                width={52}
+                height={52}
+                className="object-contain"
+                priority
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="font-heading text-2xl font-bold text-brand-900">SenseMe</span>
+              <span className="font-heading text-xs uppercase tracking-widest text-brand-500 font-semibold px-2 py-0.5 bg-brand-50 rounded-full">
+                Admin Portal
+              </span>
+            </div>
           </Link>
           <h1 className="font-heading text-xl font-bold text-text-primary">Admin Control Center</h1>
           <p className="text-sm text-text-muted mt-1">Manage products, enquiries, categories & settings</p>

@@ -169,8 +169,17 @@ export default function HomePage() {
 
         {/* Top Eyebrow Strip */}
         <div className="container-editorial flex items-center justify-between z-10 mb-4 sm:mb-6">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#B89B6A] animate-pulse" />
+          <div className="flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded-md bg-white border border-[#E6E2D9] p-0.5 flex items-center justify-center shadow-2xs">
+              <Image
+                src="/logo-transparent.png"
+                alt="SenseMe Official Seal"
+                width={20}
+                height={20}
+                className="object-contain"
+              />
+            </div>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#B89B6A] animate-pulse" />
             <span className="font-mono text-[10px] md:text-xs tracking-[0.22em] uppercase text-[#686660] font-bold">
               THE WORLD OF AROMA
             </span>
@@ -646,13 +655,24 @@ export default function HomePage() {
       <section className="py-16 sm:py-24 bg-[#FAFAF7] border-b border-[#E6E2D9]">
         <div className="container-editorial">
           <div className="border-b border-[#E6E2D9] pb-6 mb-10 sm:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-              <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block mb-1">
-                05 / CRAFTSMANSHIP
-              </span>
-              <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717]">
-                Made with Purpose.
-              </h2>
+            <div className="flex items-center gap-3.5">
+              <div className="w-12 h-12 rounded-xl bg-white border border-[#E6E2D9] p-1.5 flex items-center justify-center shadow-2xs flex-shrink-0">
+                <Image
+                  src="/logo-transparent.png"
+                  alt="SenseMe Craftsmanship Hallmark"
+                  width={38}
+                  height={38}
+                  className="object-contain"
+                />
+              </div>
+              <div>
+                <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block mb-1">
+                  05 / CRAFTSMANSHIP
+                </span>
+                <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717]">
+                  Made with Purpose.
+                </h2>
+              </div>
             </div>
             <Link
               href="/manufacturing"

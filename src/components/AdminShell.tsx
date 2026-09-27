@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useAdminAuth } from '@/lib/admin-auth';
 import {
@@ -59,9 +60,21 @@ export default function AdminShell({
     <div className="min-h-screen bg-surface-secondary flex">
       {/* Sidebar - Desktop */}
       <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-border-light fixed top-0 left-0 bottom-0 z-30 shadow-subtle">
-        <div className="p-6 border-b border-border-light flex items-center justify-between">
-          <Link href="/admin" className="font-heading text-xl font-bold text-brand-900 tracking-tight">
-            SenseMe <span className="text-brand-500 text-xs font-semibold uppercase tracking-widest px-2 py-0.5 bg-brand-50 rounded-full ml-1">Admin</span>
+        <div className="p-5 border-b border-border-light flex items-center justify-between">
+          <Link href="/admin" className="flex items-center gap-2.5 group">
+            <div className="w-8 h-8 rounded-lg bg-white border border-[#E6E2D9] p-1 flex items-center justify-center shadow-2xs">
+              <Image
+                src="/logo-transparent.png"
+                alt="SenseMe Logo"
+                width={26}
+                height={26}
+                className="object-contain"
+              />
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="font-heading text-lg font-bold text-brand-900 tracking-tight">SenseMe</span>
+              <span className="text-brand-500 text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 bg-brand-50 rounded-full">Admin</span>
+            </div>
           </Link>
         </div>
 
@@ -129,8 +142,19 @@ export default function AdminShell({
         >
           <Menu className="w-5 h-5 text-text-primary" />
         </button>
-        <div className="font-heading text-base font-bold text-brand-900">
-          SenseMe <span className="text-brand-600 text-xs">Admin</span>
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-md bg-white border border-[#E6E2D9] p-0.5 flex items-center justify-center">
+            <Image
+              src="/logo-transparent.png"
+              alt="SenseMe Logo"
+              width={22}
+              height={22}
+              className="object-contain"
+            />
+          </div>
+          <div className="font-heading text-base font-bold text-brand-900">
+            SenseMe <span className="text-brand-600 text-xs">Admin</span>
+          </div>
         </div>
         <button
           onClick={logout}

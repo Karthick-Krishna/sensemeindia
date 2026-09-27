@@ -14,9 +14,20 @@ export default function AboutPage() {
       <div className="container-editorial">
         {/* Top Header */}
         <div className="border-b border-[#E6E2D9] pb-12 mb-16 max-w-4xl space-y-4">
-          <span className="font-mono text-xs tracking-[0.3em] uppercase text-[#B89B6A] font-bold block">
-            ESTABLISHED IN COIMBATORE, TAMIL NADU
-          </span>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-white border border-[#E6E2D9] p-1 flex items-center justify-center shadow-2xs">
+              <Image
+                src="/logo-transparent.png"
+                alt="SenseMe Official Hallmark"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
+            </div>
+            <span className="font-mono text-xs tracking-[0.3em] uppercase text-[#B89B6A] font-bold">
+              ESTABLISHED IN COIMBATORE, TAMIL NADU
+            </span>
+          </div>
           <h1 className="font-serif text-5xl sm:text-7xl font-bold tracking-tight text-[#171717] leading-[0.96]">
             More Than a Product. <br />
             <span className="font-editorial italic font-normal text-[#B89B6A]">
@@ -48,9 +59,20 @@ export default function AboutPage() {
           </div>
 
           <div className="lg:col-span-6 bg-white p-8 md:p-12 rounded-[var(--radius-xl)] border border-[#E6E2D9] shadow-sm space-y-6">
-            <h3 className="font-serif text-2xl font-bold text-[#171717]">
-              Verified Manufacturing Facts
-            </h3>
+            <div className="flex items-center justify-between border-b border-[#E6E2D9] pb-4">
+              <h3 className="font-serif text-2xl font-bold text-[#171717]">
+                Verified Manufacturing Facts
+              </h3>
+              <div className="w-9 h-9 rounded-lg bg-[#FAFAF7] border border-[#E6E2D9] p-1 flex items-center justify-center">
+                <Image
+                  src="/logo-transparent.png"
+                  alt="SenseMe Logo"
+                  width={28}
+                  height={28}
+                  className="object-contain"
+                />
+              </div>
+            </div>
             <div className="space-y-4 text-xs md:text-sm font-sans">
               <div className="flex items-start gap-3">
                 <ShieldCheck className="w-5 h-5 text-[#B89B6A] flex-shrink-0 mt-0.5" />

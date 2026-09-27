@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useData } from '@/lib/data-context';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -141,13 +142,29 @@ export default function Footer() {
           {/* Brand Column (4 cols) */}
           <div className="col-span-12 lg:col-span-4 space-y-6">
             <div>
-              <Link href="/" className="inline-flex items-center gap-2.5 mb-3">
-                <span className="font-serif text-3xl font-bold text-[#171717] tracking-tight">
-                  SenseMe
-                </span>
-                <span className="font-mono text-xs tracking-[0.2em] text-[#B89B6A] uppercase font-bold border-l border-[#E6E2D9] pl-2.5">
-                  INDIA
-                </span>
+              <Link href="/" className="inline-flex items-center gap-3 mb-3 group">
+                <div className="relative w-11 h-11 rounded-xl bg-white border border-[#E6E2D9] p-1.5 flex items-center justify-center shadow-2xs group-hover:border-[#B89B6A] transition-all group-hover:scale-105">
+                  <Image
+                    src="/logo-transparent.png"
+                    alt="SenseMe India Official Logo"
+                    width={40}
+                    height={40}
+                    className="object-contain"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-2">
+                    <span className="font-serif text-2xl sm:text-3xl font-bold text-[#171717] tracking-tight group-hover:text-[#B89B6A] transition-colors leading-none">
+                      SenseMe
+                    </span>
+                    <span className="font-mono text-xs tracking-[0.2em] text-[#B89B6A] uppercase font-bold border-l border-[#E6E2D9] pl-2">
+                      INDIA
+                    </span>
+                  </div>
+                  <span className="font-mono text-[8px] tracking-[0.18em] uppercase text-[#686660] font-semibold mt-1">
+                    Pure Essential Oils
+                  </span>
+                </div>
               </Link>
               <p className="text-xs text-[#686660] font-sans leading-relaxed max-w-sm">
                 Specialized botanical distillation and fragrance compounding laboratory under Mylal Exports. Supplying 195+ pure extracts and private-label aroma products across India.
@@ -199,9 +216,25 @@ export default function Footer() {
         <div className="md:hidden space-y-4 mb-12">
           {/* Brand Intro on Mobile */}
           <div className="mb-6">
-            <Link href="/" className="inline-flex items-center gap-2 mb-2">
-              <span className="font-serif text-2xl font-bold text-[#171717]">SenseMe</span>
-              <span className="font-mono text-xs text-[#B89B6A] font-bold tracking-wider uppercase border-l border-[#E6E2D9] pl-2">INDIA</span>
+            <Link href="/" className="inline-flex items-center gap-3 mb-2">
+              <div className="relative w-9 h-9 rounded-lg bg-white border border-[#E6E2D9] p-1 flex items-center justify-center shadow-2xs">
+                <Image
+                  src="/logo-transparent.png"
+                  alt="SenseMe India Official Logo"
+                  width={32}
+                  height={32}
+                  className="object-contain"
+                />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-serif text-xl font-bold text-[#171717]">SenseMe</span>
+                  <span className="font-mono text-[10px] text-[#B89B6A] font-bold tracking-wider uppercase border-l border-[#E6E2D9] pl-2">INDIA</span>
+                </div>
+                <span className="font-mono text-[8px] tracking-wider uppercase text-[#686660] block">
+                  Pure Essential Oils
+                </span>
+              </div>
             </Link>
             <p className="text-xs text-[#686660] leading-relaxed">
               Botanical distillation & fragrance compounding laboratory under Mylal Exports, Coimbatore.

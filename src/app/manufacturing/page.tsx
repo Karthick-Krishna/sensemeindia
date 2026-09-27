@@ -74,13 +74,24 @@ export default function ManufacturingPage() {
       {/* 01 — HERO */}
       <section className="container-editorial mb-20">
         <div className="max-w-4xl space-y-6">
-          <motion.span
+          <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-mono text-xs tracking-[0.3em] uppercase text-[#B89B6A] font-bold block"
+            className="flex items-center gap-3"
           >
-            PRECISION • PURITY • COIMBATORE LABORATORY
-          </motion.span>
+            <div className="w-10 h-10 rounded-xl bg-white border border-[#E6E2D9] p-1 flex items-center justify-center shadow-2xs">
+              <Image
+                src="/logo-transparent.png"
+                alt="SenseMe Precision Hallmark"
+                width={32}
+                height={32}
+                className="object-contain"
+              />
+            </div>
+            <span className="font-mono text-xs tracking-[0.3em] uppercase text-[#B89B6A] font-bold">
+              PRECISION • PURITY • COIMBATORE LABORATORY
+            </span>
+          </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

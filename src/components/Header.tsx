@@ -109,7 +109,16 @@ export default function Header() {
             </Link>
 
             {/* Center: Desktop Navigation Links */}
-            <nav className="hidden xl:flex items-center gap-8 text-[13px] font-semibold tracking-[0.08em] font-sans text-[#171717]">
+            <nav className="hidden xl:flex items-center gap-7 text-[13px] font-semibold tracking-[0.08em] font-sans text-[#171717]">
+              <Link
+                href="/"
+                className={`nav-link-animated py-1 transition-colors ${
+                  pathname === '/' ? 'active text-[#171717]' : 'text-[#686660] hover:text-[#171717]'
+                }`}
+              >
+                Home
+              </Link>
+
               <Link
                 href="/shop"
                 className={`nav-link-animated py-1 transition-colors ${
@@ -394,6 +403,20 @@ export default function Header() {
 
             {/* Mobile Dedicated Navigation Links */}
             <div className="my-auto py-6 space-y-3 font-serif">
+              {/* Home Link */}
+              <div className="border-b border-[#E6E2D9]/70 pb-3">
+                <Link
+                  href="/"
+                  onClick={() => setMobileNavOpen(false)}
+                  className={`flex items-center justify-between text-2xl sm:text-3xl font-bold transition-colors py-1 ${
+                    pathname === '/' ? 'text-[#B89B6A]' : 'text-[#171717] hover:text-[#B89B6A]'
+                  }`}
+                >
+                  <span>Home</span>
+                  <ArrowUpRight className="w-5 h-5 text-[#B89B6A]" />
+                </Link>
+              </div>
+
               {/* Explore Products Dropdown Accordion */}
               <div className="border-b border-[#E6E2D9]/70 pb-3">
                 <button

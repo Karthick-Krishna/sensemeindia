@@ -7,14 +7,12 @@ import { useRouter } from 'next/navigation';
 import { useData } from '@/lib/data-context';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import ProductCard from '@/components/ProductCard';
-import ScentFinderWidget from '@/components/ScentFinderWidget';
 import InteractiveOlfactoryPyramid from '@/components/InteractiveOlfactoryPyramid';
 import {
   Search,
   ArrowRight,
   ArrowUpRight,
   ChevronRight,
-  ChevronLeft,
   Sparkles,
   Droplets,
   Wind,
@@ -25,11 +23,11 @@ import {
   Package,
   Layers,
   MapPin,
-  Compass,
   Flame,
   Check,
   Building2,
   X,
+  Compass,
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -140,8 +138,8 @@ export default function HomePage() {
       a: 'We manufacture steam-distilled essential oils (90+ single botanicals), luxury ambient diffuser blends, concentrated fragrance oils for candles and cold-process soap, natural perfumes, and ultrasonic aroma machines in Coimbatore.',
     },
     {
-      q: 'How does ordering work without an online cart?',
-      a: 'Browse our digital catalogue, select your desired sizes (15ml bottles to 25kg drums), and click "Buy Now on WhatsApp". Our team immediately provides real-time pricing, stock confirmation, and payment/shipping details.',
+      q: 'How does ordering work without an online payment gateway?',
+      a: 'Browse our digital catalogue, select your desired sizes (15ml bottles to 25kg drums), and click "Buy Now on WhatsApp". Our team immediately provides real-time pricing, stock confirmation, GST billing, and swift courier dispatch.',
     },
     {
       q: 'Are your fragrance oils tested for candle and soap making?',
@@ -153,7 +151,7 @@ export default function HomePage() {
     },
     {
       q: 'How are the oils packaged to ensure zero transit leakage?',
-      a: 'All oils are filled into heavy amber glass bottles with UV shielding, tamper-evident seals, and European orifice reducers. Larger orders are packed in UN-certified fluorinated containers and double-boxed for transit.',
+      a: 'All oils are filled into heavy amber glass bottles with UV shielding, tamper-evident seals, and European orifice reducers. Larger consignments are sealed in UN-certified fluorinated aluminium drums.',
     },
   ];
 
@@ -164,13 +162,13 @@ export default function HomePage() {
       {/* ========================================================================= */}
       <section
         ref={heroRef}
-        className="relative min-h-[90vh] flex flex-col justify-between pt-24 sm:pt-32 pb-10 px-4 sm:px-8 md:px-12 bg-[#FAFAF7] overflow-hidden border-b border-[#E6E2D9]"
+        className="relative min-h-[85vh] flex flex-col justify-between pt-24 sm:pt-32 pb-10 px-4 sm:px-8 md:px-12 bg-[#FAFAF7] overflow-hidden border-b border-[#E6E2D9]"
       >
         {/* Subtle Radial Light Glow */}
         <div className="absolute top-1/4 right-1/4 w-[42rem] h-[42rem] bg-[#F2F0EA]/80 rounded-full blur-3xl pointer-events-none -z-0" />
 
         {/* Top Eyebrow Strip */}
-        <div className="container-editorial flex items-center justify-between z-10 mb-6">
+        <div className="container-editorial flex items-center justify-between z-10 mb-4 sm:mb-6">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#B89B6A] animate-pulse" />
             <span className="font-mono text-[10px] md:text-xs tracking-[0.22em] uppercase text-[#686660] font-bold">
@@ -182,19 +180,19 @@ export default function HomePage() {
           </span>
         </div>
 
-        {/* Main Hero Split Layout (48% Text & Search / 52% Visual Composition) */}
+        {/* Main Hero Split Layout */}
         <motion.div
           style={{ opacity: heroOpacity }}
-          className="container-editorial my-auto py-6 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center z-10"
+          className="container-editorial my-auto py-6 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center z-10"
         >
           {/* Left: Text & Interactive Search Bar */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="lg:col-span-6 space-y-5 sm:space-y-6">
             <motion.div
               initial={{ opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
             >
-              <h1 className="font-serif text-4xl sm:text-6xl lg:text-[4.5rem] font-bold text-[#171717] tracking-tight leading-[0.98] mb-4">
+              <h1 className="font-serif text-4xl sm:text-6xl lg:text-[4.2rem] font-bold text-[#171717] tracking-tight leading-[0.98] mb-3 sm:mb-4">
                 Crafted for the Way <br />
                 <span className="font-editorial italic font-normal text-[#B89B6A]">
                   Scent is
@@ -207,9 +205,9 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.25 }}
-              className="text-sm sm:text-base text-[#686660] font-sans leading-relaxed max-w-lg"
+              className="text-xs sm:text-base text-[#686660] font-sans leading-relaxed max-w-lg"
             >
-              Single-origin steam-distilled essential oils, ambient diffuser concentrates, and candle fragrances compounded with certified purity in Coimbatore.
+              Single-origin steam-distilled essential oils, luxury ambient diffuser blends, and candle fragrances compounded with certified purity under Mylal Exports, Coimbatore.
             </motion.p>
 
             {/* Interactive Search Bar on Hero */}
@@ -229,7 +227,7 @@ export default function HomePage() {
                     onChange={(e) => setHeroSearch(e.target.value)}
                     onFocus={() => setHeroSearchFocused(true)}
                     onBlur={() => setTimeout(() => setHeroSearchFocused(false), 200)}
-                    className="w-full py-3 px-3 text-xs sm:text-sm font-sans text-[#171717] placeholder:text-[#686660]/60 outline-none"
+                    className="w-full py-2.5 sm:py-3 px-3 text-xs sm:text-sm font-sans text-[#171717] placeholder:text-[#686660]/60 outline-none"
                   />
                   {heroSearch && (
                     <button
@@ -242,7 +240,7 @@ export default function HomePage() {
                   )}
                   <button
                     type="submit"
-                    className="bg-[#171717] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider hover:bg-[#B89B6A] transition-colors whitespace-nowrap flex-shrink-0"
+                    className="bg-[#171717] text-white px-4 sm:px-5 py-2.5 sm:py-3 text-xs font-bold uppercase tracking-wider hover:bg-[#B89B6A] transition-colors whitespace-nowrap flex-shrink-0"
                   >
                     Search
                   </button>
@@ -295,20 +293,20 @@ export default function HomePage() {
               className="space-y-2 pt-1"
             >
               <span className="text-[10px] font-mono uppercase tracking-wider text-[#686660] font-bold block">
-                Popular Categories:
+                Popular Collections:
               </span>
               <div className="flex flex-wrap items-center gap-2">
                 {[
                   { name: 'Essential Oils', slug: 'essential-oils' },
                   { name: 'Diffuser Blends', slug: 'diffuser-blends' },
                   { name: 'Candle Fragrance', slug: 'candle-making' },
-                  { name: 'Soap Fragrance', slug: 'fragrance-oils' },
+                  { name: 'Soap Essences', slug: 'fragrance-oils' },
                   { name: 'Diffusers', slug: 'diffuser-machines' },
                 ].map((item) => (
                   <Link
                     key={item.slug}
                     href={`/shop?category=${item.slug}`}
-                    className="text-[11px] font-sans font-semibold px-3 py-1.5 rounded-full bg-white border border-[#E6E2D9] text-[#171717] hover:border-[#171717] hover:bg-[#FAFAF7] transition-all shadow-2xs"
+                    className="text-[10px] sm:text-[11px] font-sans font-semibold px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white border border-[#E6E2D9] text-[#171717] hover:border-[#171717] hover:bg-[#FAFAF7] transition-all shadow-2xs"
                   >
                     {item.name}
                   </Link>
@@ -318,7 +316,7 @@ export default function HomePage() {
           </div>
 
           {/* Right: Layered Product Composition (100% Clickable & Touch-Optimized) */}
-          <div className="lg:col-span-6 relative h-[360px] sm:h-[440px] md:h-[480px] flex items-center justify-center">
+          <div className="lg:col-span-6 relative h-[340px] sm:h-[420px] md:h-[460px] flex items-center justify-center">
             <div className="absolute inset-0 rounded-[var(--radius-xl)] bg-gradient-to-tr from-[#F2F0EA]/70 via-white/80 to-[#FAFAF7] border border-[#E6E2D9] shadow-sm pointer-events-none" />
 
             {/* Layer 3: Main Large Spotlight Product - 100% Clickable & Touch-Friendly */}
@@ -340,7 +338,7 @@ export default function HomePage() {
                   <span className="font-mono text-[10px] text-[#686660] font-semibold">{featuredLarge?.sku || 'SMI-0527'}</span>
                 </div>
 
-                <div className="relative w-full h-[180px] sm:h-[220px] my-2 flex items-center justify-center bg-[#FAFAF7]/60 rounded-[var(--radius-md)] overflow-hidden">
+                <div className="relative w-full h-[170px] sm:h-[210px] my-2 flex items-center justify-center bg-[#FAFAF7]/60 rounded-[var(--radius-md)] overflow-hidden">
                   <Image
                     src={featuredLarge?.images?.[0] || '/products/images/luxury-hotel-fragrance-oil-527-1.jpg'}
                     alt={featuredLarge?.name || 'Luxury Hotel Fragrance Oil'}
@@ -443,302 +441,136 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 02 — BRAND INTRODUCTION: "MORE THAN A PRODUCT." */}
+      {/* 02 — CURATED COLLECTIONS: THE 4 ESSENTIAL BOTANICAL PILLARS */}
       {/* ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#FFFFFF] border-b border-[#E6E2D9]">
-        <div className="container-editorial space-y-12 sm:space-y-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
-            {/* Left Narrative */}
-            <div className="lg:col-span-6 space-y-4 sm:space-y-5">
-              <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block">
-                02 / PHILOSOPHY & HERITAGE
-              </span>
-              <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold text-[#171717] tracking-tight leading-tight">
-                More Than a Product.
-              </h2>
-              <p className="text-sm sm:text-base text-[#686660] font-sans leading-relaxed">
-                Operating under <strong className="text-[#171717] font-semibold">Mylal Exports</strong> in Coimbatore, Tamil Nadu, SenseMe India develops and compounds pure botanical extracts and high-potency fragrance oils.
-              </p>
-              <p className="text-xs sm:text-sm text-[#686660] leading-relaxed">
-                We supply soap artisans, candle makers, luxury hotels, and private-label wellness brands across India with unadulterated formulations backed by physical inspection and sealed packaging.
-              </p>
-              <div className="pt-2">
-                <Link
-                  href="/about"
-                  className="text-xs font-mono font-bold uppercase tracking-wider text-[#171717] hover:text-[#B89B6A] flex items-center gap-1.5 transition-colors"
-                >
-                  Explore Company Heritage <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-
-            {/* Right Large Image Box */}
-            <div className="lg:col-span-6">
-              <div className="w-full aspect-[16/10] rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] p-6 shadow-sm relative overflow-hidden flex items-center justify-center group">
-                <Image
-                  src="/products/images/citrus-fragrance-oil-for-soap-making-286-1.png"
-                  alt="SenseMe India Botanical Compounding"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 600px"
-                  className="object-contain p-6 group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 font-mono text-[9px] uppercase tracking-widest text-[#686660] bg-white/95 px-3 py-1 rounded border border-[#E6E2D9]">
-                  COIMBATORE LABORATORY
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 3 Key Fact Areas */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 pt-2">
-            <div className="p-6 sm:p-8 rounded-[var(--radius-lg)] bg-[#FAFAF7] border border-[#E6E2D9] shadow-2xs space-y-2.5">
-              <span className="font-mono text-xs font-bold text-[#B89B6A]">01 / DEVELOPMENT</span>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#171717]">Product Development</h3>
-              <p className="text-xs text-[#686660] leading-relaxed">
-                Single-origin steam distillation, custom fragrance blending, and formulation testing for candle, soap, and diffuser applications.
-              </p>
-            </div>
-
-            <div className="p-6 sm:p-8 rounded-[var(--radius-lg)] bg-[#FAFAF7] border border-[#E6E2D9] shadow-2xs space-y-2.5">
-              <span className="font-mono text-xs font-bold text-[#B89B6A]">02 / MANUFACTURING</span>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#171717]">Manufacturing Purity</h3>
-              <p className="text-xs text-[#686660] leading-relaxed">
-                Operating directly out of Coimbatore with multi-point inspection, density verification, and pharmaceutical-grade amber packaging.
-              </p>
-            </div>
-
-            <div className="p-6 sm:p-8 rounded-[var(--radius-lg)] bg-[#FAFAF7] border border-[#E6E2D9] shadow-2xs space-y-2.5">
-              <span className="font-mono text-xs font-bold text-[#B89B6A]">03 / BUSINESS</span>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#171717]">Business Solutions</h3>
-              <p className="text-xs text-[#686660] leading-relaxed">
-                Volume-tiered wholesale supplies from 1kg aluminium bottles to 25kg drums, and turnkey private-label OEM manufacturing.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 03 — PRODUCT UNIVERSE: "DISCOVER THE COLLECTIONS" -> /shop?category=... */}
-      {/* ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#FAFAF7] border-b border-[#E6E2D9]">
+      <section className="py-16 sm:py-24 bg-[#FFFFFF] border-b border-[#E6E2D9]">
         <div className="container-editorial">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4 sm:gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-4">
             <div>
               <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block mb-1">
-                03 / THE UNIVERSE
+                02 / THE ARCHIVE
               </span>
-              <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold text-[#171717] tracking-tight">
-                Discover the Collections
+              <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717] tracking-tight">
+                Curated Collections
               </h2>
             </div>
             <Link
               href="/shop"
-              className="btn-luxury-outline text-xs py-2.5 px-6 self-start md:self-auto flex items-center gap-1.5"
+              className="text-xs font-mono font-bold uppercase tracking-wider text-[#171717] hover:text-[#B89B6A] flex items-center gap-1 transition-colors self-start md:self-auto"
             >
-              Browse Full Archive ({products.length}) →
+              Explore All 195+ Formulations <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          {/* Large Category Panels with Real Imagery — Direct Filter on Click! */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {categories.map((cat, idx) => {
-              const count = products.filter((p) => p.categoryId === cat.id).length;
-              return (
-                <motion.div
-                  key={cat.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.06 }}
-                  className="group"
-                >
-                  <Link
-                    href={`/shop?category=${cat.slug}`}
-                    className="block bg-white rounded-[var(--radius-xl)] border border-[#E6E2D9] group-hover:border-[#B89B6A] overflow-hidden shadow-xs group-hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full"
-                  >
-                    <div className="p-6 sm:p-8 pb-3">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="font-serif text-3xl font-bold text-[#E6E2D9] group-hover:text-[#B89B6A] transition-colors">
-                          0{idx + 1}
-                        </span>
-                        <span className="text-[10px] font-mono tracking-widest uppercase px-2.5 py-1 rounded bg-[#FAFAF7] border border-[#E6E2D9] text-[#686660]">
-                          {count} PRODUCTS
-                        </span>
-                      </div>
-
-                      <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#171717] mb-2 group-hover:text-[#B89B6A] transition-colors">
-                        {cat.name}
-                      </h3>
-                      <p className="text-xs text-[#686660] font-sans leading-relaxed line-clamp-2 mb-3">
-                        {cat.description}
-                      </p>
-                    </div>
-
-                    <div className="h-40 sm:h-44 w-full bg-[#FAFAF7] relative overflow-hidden border-t border-[#E6E2D9] flex items-center justify-center p-4">
-                      {cat.image && (
-                        <Image
-                          src={cat.image}
-                          alt={cat.name}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 33vw"
-                          className="object-contain p-3 group-hover:scale-105 transition-transform duration-500"
-                        />
-                      )}
-                      <div className="absolute inset-x-0 bottom-0 p-3.5 bg-gradient-to-t from-white/95 via-white/60 to-transparent flex items-center justify-between">
-                        <span className="font-mono text-[9px] tracking-[0.18em] uppercase text-[#686660] font-bold">
-                          VIEW {cat.name.toUpperCase()}
-                        </span>
-                        <ArrowUpRight className="w-4 h-4 text-[#171717] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 04 — FEATURED PRODUCT SHOWCASE: "SELECTED PRODUCTS" */}
-      {/* ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#FFFFFF] border-b border-[#E6E2D9]">
-        <div className="container-editorial">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4 sm:gap-6 border-b border-[#E6E2D9] pb-6 sm:pb-8">
-            <div>
-              <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block mb-1">
-                04 / CURATED SPOTLIGHT
-              </span>
-              <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717]">
-                Selected Products
-              </h2>
-            </div>
-            <Link href="/shop" className="btn-luxury-outline text-xs py-2.5 px-6 self-start md:self-auto">
-              Explore All 195+ Formulations →
-            </Link>
-          </div>
-
-          {/* Asymmetric Showcase: 1 Large Left + 2 Stacked Right */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
-            {/* Large Spotlight Product (7 cols) - 100% Clickable */}
-            <div className="lg:col-span-7 bg-[#FAFAF7] rounded-[var(--radius-xl)] border border-[#E6E2D9] hover:border-[#B89B6A] p-6 sm:p-10 flex flex-col justify-between group transition-all duration-300 shadow-2xs hover:shadow-md">
-              <Link href={`/product/${featuredLarge?.slug}`} className="block">
-                <div className="flex items-center justify-between mb-3 sm:mb-4">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1 bg-white rounded border border-[#E6E2D9] text-[#B89B6A]">
-                    FEATURED 01
-                  </span>
-                  <span className="font-mono text-xs text-[#686660]">{featuredLarge?.sku}</span>
-                </div>
-                <h3 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold text-[#171717] group-hover:text-[#B89B6A] transition-colors leading-tight mb-2 sm:mb-3">
-                  {featuredLarge?.name}
-                </h3>
-                <p className="text-xs sm:text-sm text-[#686660] leading-relaxed max-w-xl font-sans mb-4 sm:mb-6">
-                  {featuredLarge?.shortDescription || featuredLarge?.description}
-                </p>
-              </Link>
-
+          {/* 4 Distinct Core Collection Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+            {[
+              {
+                num: '01',
+                title: 'Pure Essential Oils',
+                categorySlug: 'essential-oils',
+                desc: 'Single-origin steam-distilled botanicals with verified therapeutic terpenes.',
+                count: '90+ Oils',
+                img: '/products/images/basil-essential-oil-192-1.jpg',
+              },
+              {
+                num: '02',
+                title: 'Diffuser Blends',
+                categorySlug: 'diffuser-blends',
+                desc: 'Atmospheric cold-mist scent concentrates for hotel lobbies, spas & luxury spaces.',
+                count: '45+ Blends',
+                img: '/products/images/luxury-hotel-fragrance-oil-527-1.jpg',
+              },
+              {
+                num: '03',
+                title: 'Candle Fragrances',
+                categorySlug: 'candle-making',
+                desc: 'High flashpoint aromatic formulations designed for clean burn in soy & beeswax.',
+                count: '35+ Scents',
+                img: '/products/images/bergamot-fragrance-oil-for-candle-making-563-1.jpg',
+              },
+              {
+                num: '04',
+                title: 'Soap Essences',
+                categorySlug: 'fragrance-oils',
+                desc: 'Alkali-stable botanical compounds with zero seizing in cold-process soapmaking.',
+                count: '25+ Formulations',
+                img: '/products/images/citrus-fragrance-oil-for-soap-making-286-1.png',
+              },
+            ].map((col) => (
               <Link
-                href={`/product/${featuredLarge?.slug}`}
-                className="relative w-full h-[220px] sm:h-[300px] my-4 sm:my-6 flex items-center justify-center bg-white/70 rounded-[var(--radius-lg)] border border-[#E6E2D9]/70 overflow-hidden"
+                key={col.num}
+                href={`/shop?category=${col.categorySlug}`}
+                className="group bg-[#FAFAF7] rounded-[var(--radius-xl)] border border-[#E6E2D9] hover:border-[#B89B6A] p-5 sm:p-6 flex flex-col justify-between shadow-2xs hover:shadow-md transition-all duration-300"
               >
-                {featuredLarge?.images && featuredLarge.images[0] && (
-                  <Image
-                    src={featuredLarge.images[0]}
-                    alt={featuredLarge.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 500px"
-                    className="object-contain p-3 group-hover:scale-105 transition-transform duration-700"
-                  />
-                )}
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-serif text-2xl font-bold text-[#B89B6A]/70 group-hover:text-[#B89B6A] transition-colors">
+                      {col.num}
+                    </span>
+                    <span className="font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 rounded bg-white border border-[#E6E2D9] text-[#686660]">
+                      {col.count}
+                    </span>
+                  </div>
+
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#171717] group-hover:text-[#B89B6A] transition-colors mb-1.5">
+                    {col.title}
+                  </h3>
+                  <p className="text-xs text-[#686660] font-sans leading-relaxed line-clamp-2 mb-4">
+                    {col.desc}
+                  </p>
+                </div>
+
+                <div>
+                  <div className="w-full aspect-[4/3] rounded-[var(--radius-md)] bg-white border border-[#E6E2D9]/80 relative overflow-hidden mb-3 flex items-center justify-center p-3">
+                    <Image
+                      src={col.img}
+                      alt={col.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 260px"
+                      className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-between pt-2 border-t border-[#E6E2D9] text-[11px] font-mono text-[#171717] font-bold">
+                    <span>Explore Collection</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#B89B6A] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </div>
+                </div>
               </Link>
-
-              <div className="pt-4 sm:pt-6 border-t border-[#E6E2D9] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <span className="font-mono text-xs text-[#686660]">15ml – 5kg Drums Available</span>
-                <Link
-                  href={`/product/${featuredLarge?.slug}`}
-                  className="btn-luxury-primary text-xs py-3 px-6 text-center flex items-center justify-center gap-1.5"
-                >
-                  Inspect Specifications <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-
-            {/* 2 Stacked Companion Products (5 cols) - 100% Clickable */}
-            <div className="lg:col-span-5 flex flex-col gap-6 sm:gap-8 justify-between">
-              {[featuredStacked1, featuredStacked2].map((prod, i) => (
-                <Link
-                  key={prod?.id || i}
-                  href={`/product/${prod?.slug}`}
-                  className="bg-[#FAFAF7] rounded-[var(--radius-xl)] border border-[#E6E2D9] hover:border-[#B89B6A] p-5 sm:p-6 flex flex-col justify-between flex-1 group shadow-2xs hover:shadow-md transition-all duration-300 block cursor-pointer"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-[#B89B6A] block mb-1">
-                        FEATURED 0{i + 2} • {prod?.categoryName}
-                      </span>
-                      <h4 className="font-serif text-xl sm:text-2xl font-bold text-[#171717] group-hover:text-[#B89B6A] transition-colors">
-                        {prod?.name}
-                      </h4>
-                    </div>
-                    <span className="p-2 rounded-full bg-white border border-[#E6E2D9] text-[#171717] group-hover:bg-[#171717] group-hover:text-white transition-colors flex-shrink-0">
-                      <ArrowUpRight className="w-4 h-4" />
-                    </span>
-                  </div>
-
-                  <div className="relative w-full h-[130px] sm:h-[150px] my-3 bg-white/60 rounded-[var(--radius-md)] border border-[#E6E2D9]/60 overflow-hidden flex items-center justify-center">
-                    {prod?.images && prod.images[0] && (
-                      <Image
-                        src={prod.images[0]}
-                        alt={prod.name}
-                        fill
-                        sizes="260px"
-                        className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
-                      />
-                    )}
-                  </div>
-
-                  <div className="pt-3 border-t border-[#E6E2D9] flex items-center justify-between text-xs font-mono text-[#686660]">
-                    <span>{prod?.sku}</span>
-                    <span className="text-[#171717] font-bold group-hover:text-[#B89B6A] flex items-center gap-1 transition-colors">
-                      View Details →
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 05 — LIVE IN-PAGE PRODUCT DISCOVERY GRID */}
+      {/* 03 — MASTER CATALOGUE EXPLORER (PRIMARY INTERACTIVE PRODUCT SHOWCASE) */}
       {/* ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#FAFAF7] border-b border-[#E6E2D9]">
+      <section className="py-16 sm:py-24 bg-[#FAFAF7] border-b border-[#E6E2D9]">
         <div className="container-editorial">
           <div className="border-b border-[#E6E2D9] pb-6 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block mb-1">
-                05 / LIVE CATALOGUE EXPLORER
+                03 / LIVE CATALOGUE EXPLORER
               </span>
               <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717]">
-                Explore the Botanical Archive
+                Master Laboratory Formulations
               </h2>
             </div>
             <Link
               href="/shop"
-              className="text-xs font-mono font-bold uppercase tracking-wider text-[#171717] hover:text-[#B89B6A] flex items-center gap-1 transition-colors"
+              className="text-xs font-mono font-bold uppercase tracking-wider text-[#171717] hover:text-[#B89B6A] flex items-center gap-1 transition-colors self-start md:self-auto"
             >
               Open Full Shop Directory ({products.length}) <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          {/* In-Page Filter Pills & Quick Search */}
+          {/* In-Page Filter Pills & Live Search */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
             <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none py-1">
               <button
                 onClick={() => setDiscoveryCategory('all')}
-                className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider font-sans whitespace-nowrap transition-all ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider font-sans whitespace-nowrap transition-all ${
                   discoveryCategory === 'all'
                     ? 'bg-[#171717] text-white shadow-xs'
                     : 'bg-white text-[#686660] hover:bg-[#F2F0EA] border border-[#E6E2D9]'
@@ -750,7 +582,7 @@ export default function HomePage() {
                 <button
                   key={c.id}
                   onClick={() => setDiscoveryCategory(c.id)}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider font-sans whitespace-nowrap transition-all ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider font-sans whitespace-nowrap transition-all ${
                     discoveryCategory === c.id
                       ? 'bg-[#171717] text-white shadow-xs'
                       : 'bg-white text-[#686660] hover:bg-[#F2F0EA] border border-[#E6E2D9]'
@@ -781,8 +613,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Discovery Product Cards Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-6">
+          {/* Discovery Product Cards Grid (Optimized 2-col on mobile, 4-col on desktop) */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6">
             {discoveryProducts.map((product, idx) => (
               <ProductCard key={product.id} product={product} index={idx} aspect="tall" />
             ))}
@@ -791,23 +623,32 @@ export default function HomePage() {
           <div className="pt-10 text-center">
             <Link
               href={discoveryCategory === 'all' ? '/shop' : `/shop?category=${categories.find(c => c.id === discoveryCategory)?.slug || 'all'}`}
-              className="btn-luxury-primary text-xs py-3.5 px-8"
+              className="btn-luxury-primary text-xs py-3.5 px-8 inline-flex items-center gap-2"
             >
-              View More in This Category →
+              View More in This Category <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 06 — MANUFACTURING STORY: "MADE WITH PURPOSE." */}
+      {/* 04 — SENSORY ARCHITECTURE: 3D OLFACTORY NOTES PYRAMID */}
       {/* ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#FFFFFF] border-b border-[#E6E2D9]">
+      <section className="py-16 sm:py-24 bg-[#FFFFFF] border-b border-[#E6E2D9]">
         <div className="container-editorial">
-          <div className="border-b border-[#E6E2D9] pb-6 mb-12 sm:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <InteractiveOlfactoryPyramid />
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 05 — MANUFACTURING STORY: "MADE WITH PURPOSE" */}
+      {/* ========================================================================= */}
+      <section className="py-16 sm:py-24 bg-[#FAFAF7] border-b border-[#E6E2D9]">
+        <div className="container-editorial">
+          <div className="border-b border-[#E6E2D9] pb-6 mb-10 sm:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block mb-1">
-                06 / CRAFTSMANSHIP
+                05 / CRAFTSMANSHIP
               </span>
               <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717]">
                 Made with Purpose.
@@ -821,8 +662,8 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* 4 Step Sequence */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
+          {/* 4 Step Sequence Split */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-center">
             <div className="lg:col-span-6 space-y-3">
               {mfgSteps.map((s, idx) => {
                 const isActive = activeMfgStep === idx;
@@ -832,8 +673,8 @@ export default function HomePage() {
                     onClick={() => setActiveMfgStep(idx)}
                     className={`w-full text-left p-4 sm:p-5 rounded-[var(--radius-lg)] border transition-all duration-300 relative ${
                       isActive
-                        ? 'bg-[#FAFAF7] border-[#171717] shadow-xs ring-1 ring-[#171717]'
-                        : 'bg-white border-[#E6E2D9] hover:border-[#B89B6A]'
+                        ? 'bg-white border-[#171717] shadow-xs ring-1 ring-[#171717]'
+                        : 'bg-[#F2F0EA]/60 border-[#E6E2D9] hover:border-[#B89B6A]'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1">
@@ -854,7 +695,7 @@ export default function HomePage() {
             </div>
 
             <div className="lg:col-span-6">
-              <div className="w-full aspect-[4/3] rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] p-6 shadow-sm relative overflow-hidden flex items-center justify-center">
+              <div className="w-full aspect-[4/3] rounded-[var(--radius-xl)] bg-white border border-[#E6E2D9] p-6 shadow-sm relative overflow-hidden flex items-center justify-center">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeMfgStep}
@@ -871,8 +712,8 @@ export default function HomePage() {
                       sizes="(max-width: 768px) 100vw, 500px"
                       className="object-contain p-4"
                     />
-                    <div className="absolute top-3 left-3 font-mono text-[9px] uppercase tracking-widest text-[#686660] bg-white/90 px-2.5 py-1 rounded border border-[#E6E2D9]">
-                      {mfgSteps[activeMfgStep].step}
+                    <div className="absolute top-3 left-3 font-mono text-[9px] uppercase tracking-widest text-[#686660] bg-white/95 px-2.5 py-1 rounded border border-[#E6E2D9]">
+                      STAGE: {mfgSteps[activeMfgStep].step}
                     </div>
                   </motion.div>
                 </AnimatePresence>
@@ -883,184 +724,47 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 07 — EXPLORE BY APPLICATION: "WHERE AROMA BECOMES EXPERIENCE." */}
-      {/* ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#FAFAF7] border-b border-[#E6E2D9]">
-        <div className="container-editorial">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-4 sm:gap-6">
-            <div>
-              <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block mb-1">
-                07 / APPLICATION DISCOVERY
-              </span>
-              <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl font-bold text-[#171717] tracking-tight">
-                Where Aroma Becomes Experience.
-              </h2>
-            </div>
-            <Link href="/applications" className="btn-luxury-outline text-xs py-2.5 px-6 self-start md:self-auto">
-              View Application Guides →
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                title: 'Candle Making & Wax Formulation',
-                category: 'candle-making',
-                desc: 'High flashpoint concentrates engineered for soy, beeswax, and paraffin candle making.',
-                img: '/products/images/bergamot-fragrance-oil-for-candle-making-563-1.jpg',
-              },
-              {
-                title: 'Cold-Process Soap Saponification',
-                category: 'fragrance-oils',
-                desc: 'Alkali-stable botanical essences designed for zero trace seizing in soap crafting.',
-                img: '/products/images/citrus-fragrance-oil-for-soap-making-286-1.png',
-              },
-              {
-                title: 'Luxury Hospitality & Ambient Scenting',
-                category: 'diffuser-blends',
-                desc: 'Harmonious signature blends engineered for cold-mist ultrasonic and HVAC scent dispersion.',
-                img: '/products/images/luxury-hotel-fragrance-oil-527-1.jpg',
-              },
-            ].map((app, i) => (
-              <Link
-                key={i}
-                href={`/shop?category=${app.category}`}
-                className="p-6 sm:p-8 rounded-[var(--radius-xl)] bg-white border border-[#E6E2D9] hover:border-[#B89B6A] shadow-2xs hover:shadow-md transition-all group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-full aspect-[4/3] rounded-[var(--radius-md)] bg-[#FAFAF7] border border-[#E6E2D9] relative overflow-hidden mb-5 flex items-center justify-center p-4">
-                    <Image
-                      src={app.img}
-                      alt={app.title}
-                      fill
-                      sizes="300px"
-                      className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#171717] group-hover:text-[#B89B6A] transition-colors mb-2">
-                    {app.title}
-                  </h3>
-                  <p className="text-xs text-[#686660] leading-relaxed font-sans">{app.desc}</p>
-                </div>
-                <div className="pt-4 mt-4 border-t border-[#E6E2D9] flex items-center justify-between text-xs font-mono text-[#171717] font-bold">
-                  <span>Explore Formulations</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#B89B6A]" />
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 08 — INTERACTIVE SCENT FINDER & OLFACTORY PYRAMID */}
+      {/* 06 — BUSINESS SOLUTIONS: WHOLESALE & PRIVATE LABEL OEM */}
       {/* ========================================================================= */}
       <section className="py-16 sm:py-24 bg-[#FFFFFF] border-b border-[#E6E2D9]">
-        <div className="container-editorial space-y-16 sm:space-y-20">
-          <ScentFinderWidget />
-          <InteractiveOlfactoryPyramid />
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 09 — QUALITY STORY: "DETAILS MATTER." */}
-      {/* ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#FAFAF7] border-b border-[#E6E2D9]">
         <div className="container-editorial">
-          <div className="max-w-3xl mb-12 sm:mb-16 space-y-2">
-            <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block">
-              09 / MANUFACTURING PRINCIPLES
-            </span>
-            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717] tracking-tight">
-              Details Matter.
-            </h2>
-            <p className="text-xs sm:text-sm md:text-base text-[#686660] font-sans leading-relaxed">
-              Every botanical batch follows verified standards across physical extraction, UV shielding, batch safety, and verified customer guidance.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-            {[
-              {
-                num: '01',
-                title: 'Amber UV Shielding',
-                desc: 'Housed in heavy amber glass to protect delicate botanical monoterpenes from photolytic breakdown.',
-              },
-              {
-                num: '02',
-                title: 'Tamper-Evident Seals',
-                desc: 'Secure industrial sealing ensuring zero contamination and leak-free transit across India.',
-              },
-              {
-                num: '03',
-                title: 'Application Guidance',
-                desc: 'Precise dosage and flashpoint advice for diffusers, soap crafting, and candle wax blending.',
-              },
-              {
-                num: '04',
-                title: 'Authentic Provenance',
-                desc: 'Distilled and compounded directly at Mylal Exports in Coimbatore, eliminating middleman dilution.',
-              },
-            ].map((card, i) => (
-              <div
-                key={i}
-                className="p-6 sm:p-8 rounded-[var(--radius-xl)] bg-white border border-[#E6E2D9] shadow-2xs flex flex-col justify-between"
-              >
-                <div>
-                  <span className="font-mono text-xs font-bold text-[#B89B6A] tracking-[0.2em] block mb-2 sm:mb-3">
-                    {card.num}
-                  </span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#171717] mb-2">
-                    {card.title}
-                  </h3>
-                  <p className="text-xs text-[#686660] font-sans leading-relaxed">
-                    {card.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 10 — BUSINESS / WHOLESALE: "BUILT FOR BUSINESS." */}
-      {/* ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#FFFFFF] border-b border-[#E6E2D9]">
-        <div className="container-editorial">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-stretch">
             {/* Wholesale */}
-            <div className="p-6 sm:p-12 rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] space-y-4 sm:space-y-6 shadow-2xs">
-              <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block">
-                10A / B2B SUPPLY
-              </span>
-              <h3 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold text-[#171717] tracking-tight">
-                Built for Business.
-              </h3>
-              <p className="text-xs sm:text-sm text-[#686660] font-sans leading-relaxed">
-                We supply bulk quantities from 1kg aluminium containers to 25kg drums for soap manufacturers, candle artisans, cosmetic laboratories, and hotel ambient scenting.
-              </p>
-              <div>
-                <Link href="/wholesale" className="btn-luxury-primary text-xs py-3.5 px-7 inline-flex">
-                  Start an Enquiry →
+            <div className="p-6 sm:p-10 rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] space-y-4 sm:space-y-5 shadow-2xs flex flex-col justify-between">
+              <div className="space-y-3">
+                <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block">
+                  06A / B2B BULK SUPPLY
+                </span>
+                <h3 className="font-serif text-2xl sm:text-4xl font-bold text-[#171717] tracking-tight">
+                  Built for Manufacturing & Hospitality.
+                </h3>
+                <p className="text-xs sm:text-sm text-[#686660] font-sans leading-relaxed">
+                  Direct supply from 1kg aluminium bottles to 25kg UN drums for soap artisans, candle crafters, cosmetic laboratories, and luxury hotel ambient scenting.
+                </p>
+              </div>
+              <div className="pt-2">
+                <Link href="/wholesale" className="btn-luxury-primary text-xs py-3.5 px-7 inline-flex items-center gap-2">
+                  Start Wholesale Enquiry <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>
 
             {/* Rebranding */}
-            <div className="p-6 sm:p-12 rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] space-y-4 sm:space-y-6 shadow-2xs">
-              <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block">
-                10B / PRIVATE LABEL
-              </span>
-              <h3 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold text-[#171717] tracking-tight">
-                Your Brand. Our Expertise.
-              </h3>
-              <p className="text-xs sm:text-sm text-[#686660] font-sans leading-relaxed">
-                Launch your own bespoke perfume or diffuser line. We handle custom formulation, regulatory batch blending, bottle packaging, and private-label labeling in Coimbatore.
-              </p>
-              <div>
-                <Link href="/rebranding" className="btn-luxury-outline text-xs py-3.5 px-7 inline-flex">
-                  Explore Private Labeling →
+            <div className="p-6 sm:p-10 rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] space-y-4 sm:space-y-5 shadow-2xs flex flex-col justify-between">
+              <div className="space-y-3">
+                <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block">
+                  06B / PRIVATE LABEL OEM
+                </span>
+                <h3 className="font-serif text-2xl sm:text-4xl font-bold text-[#171717] tracking-tight">
+                  Your Signature Brand. Our Formulation.
+                </h3>
+                <p className="text-xs sm:text-sm text-[#686660] font-sans leading-relaxed">
+                  Launch bespoke perfume, room spray, or diffuser lines. We manage custom compounding, batch safety, bottle packaging, and OEM private labeling from Coimbatore.
+                </p>
+              </div>
+              <div className="pt-2">
+                <Link href="/rebranding" className="btn-luxury-outline text-xs py-3.5 px-7 inline-flex items-center gap-2">
+                  Explore Private Labeling <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>
@@ -1069,14 +773,14 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 11 — EDITORIAL ACCORDION FAQ */}
+      {/* 07 — EDITORIAL ACCORDION FAQ */}
       {/* ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#FFFFFF] border-b border-[#E6E2D9]">
+      <section className="py-16 sm:py-24 bg-[#FAFAF7] border-b border-[#E6E2D9]">
         <div className="container-editorial">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12">
             <div className="lg:col-span-5 space-y-3 sm:space-y-4">
               <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block">
-                11 / QUESTIONS & GUIDANCE
+                07 / QUESTIONS & GUIDANCE
               </span>
               <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717] tracking-tight">
                 Frequently Answered
@@ -1088,15 +792,15 @@ export default function HomePage() {
 
             <div className="lg:col-span-7 divide-y divide-[#E6E2D9] border-t border-b border-[#E6E2D9]">
               {faqs.map((faq, i) => (
-                <div key={i} className="py-5 sm:py-6">
+                <div key={i} className="py-4 sm:py-5">
                   <button
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
                     className="w-full flex items-center justify-between text-left gap-4 group"
                   >
-                    <span className="font-serif text-lg sm:text-2xl font-bold text-[#171717] group-hover:text-[#B89B6A] transition-colors">
+                    <span className="font-serif text-base sm:text-xl font-bold text-[#171717] group-hover:text-[#B89B6A] transition-colors">
                       {faq.q}
                     </span>
-                    <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FAFAF7] border border-[#E6E2D9] flex items-center justify-center flex-shrink-0 group-hover:border-[#171717] transition-colors">
+                    <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white border border-[#E6E2D9] flex items-center justify-center flex-shrink-0 group-hover:border-[#171717] transition-colors">
                       {openFaq === i ? (
                         <Minus className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#171717]" />
                       ) : (

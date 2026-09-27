@@ -44,6 +44,11 @@ export default function ProductPage() {
 
   const buyButtonRef = useRef<HTMLButtonElement>(null);
 
+  // Always scroll to top immediately on navigation to product detail page
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [slug]);
+
   useEffect(() => {
     const handleScroll = () => {
       if (buyButtonRef.current) {

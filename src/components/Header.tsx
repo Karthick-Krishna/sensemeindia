@@ -70,25 +70,6 @@ export default function Header() {
     <>
       {/* Pinned Top Navigation Wrapper */}
       <div className="fixed top-0 left-0 right-0 z-50 flex flex-col">
-        {/* Top Announcement Bar (Desktop & Tablet) */}
-        <div className="hidden sm:block bg-[#F2F0EA] text-[#171717] py-1.5 px-4 text-center text-[11px] font-mono uppercase tracking-[0.18em] font-semibold border-b border-[#E6E2D9]">
-          <div className="container-editorial flex items-center justify-between">
-            <span className="text-[#686660]">EST. COIMBATORE, TAMIL NADU</span>
-            <span className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#B89B6A] animate-pulse" />
-              DIRECT BOTANICAL MANUFACTURER • 195+ PURE EXTRACTS • PAN-INDIA DISPATCH
-            </span>
-            <a
-              href={`https://wa.me/${settings.whatsappNumber}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-[#B89B6A] hover:text-[#171717] transition-colors font-bold"
-            >
-              <MessageCircle className="w-3.5 h-3.5 fill-current" /> Expert Hotline
-            </a>
-          </div>
-        </div>
-
         {/* Main Sticky Navigation Bar */}
         <header
           className={`w-full transition-all duration-300 ${

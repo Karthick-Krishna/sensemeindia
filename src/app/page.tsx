@@ -28,6 +28,7 @@ import {
   Building2,
   X,
   Compass,
+  MessageCircle,
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -60,10 +61,44 @@ export default function HomePage() {
   // FAQ Accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  // Selected Featured Products for Showcase (1 large + 2 stacked)
-  const featuredLarge = products.find((p) => p.slug === 'luxury-hotel-fragrance-oil' || p.id === 'sm-527') || products[0];
-  const featuredStacked1 = products.find((p) => p.slug === 'basil-essential-oil' || p.id === 'sm-192') || products[1];
-  const featuredStacked2 = products.find((p) => p.slug === 'bergamot-fragrance-oil-for-candle-making' || p.id === 'sm-563') || products[2];
+  // Interactive Master Spotlight Showcase (3 Switchable Signature Formulations)
+  const [activeSpotlightIdx, setActiveSpotlightIdx] = useState(0);
+
+  const spotlightList = useMemo(() => {
+    const p1 = products.find((p) => p.slug === 'luxury-hotel-fragrance-oil' || p.id === 'sm-527') || products[0];
+    const p2 = products.find((p) => p.slug === 'basil-essential-oil' || p.id === 'sm-192') || products[1];
+    const p3 = products.find((p) => p.slug === 'bergamot-fragrance-oil-for-candle-making' || p.id === 'sm-563') || products[2];
+
+    return [
+      {
+        product: p1,
+        tabTitle: 'Hotel Fragrance (SMI-0527)',
+        badge: 'SIGNATURE BLEND',
+        sku: p1?.sku || 'SMI-0527',
+        categoryLabel: 'Ambient Scenting • Cold Mist',
+        notes: ['Bergamot & Fig', 'White Tea & Lily', 'Amber & Cedar'],
+        purity: 'High-Concentrate Diffusion Essence',
+      },
+      {
+        product: p2,
+        tabTitle: 'Pure Basil Oil (SMI-0192)',
+        badge: 'SINGLE BOTANICAL',
+        sku: p2?.sku || 'SMI-0192',
+        categoryLabel: '100% Steam Distilled • Pure Extract',
+        notes: ['Sweet Herbaceous', 'Camphorous Linalool', 'Spicy Warmth'],
+        purity: 'Zero Solvents • 99.9% Purity GC-MS',
+      },
+      {
+        product: p3,
+        tabTitle: 'Bergamot Candle (SMI-0563)',
+        badge: 'CANDLE & SOAP',
+        sku: p3?.sku || 'SMI-0563',
+        categoryLabel: 'High Flashpoint • Soy & Beeswax',
+        notes: ['Calabrian Bergamot', 'Earl Grey Accord', 'Warm Woody Musk'],
+        purity: 'Maximum Cold & Hot Scent Throw',
+      },
+    ];
+  }, [products]);
 
   // Live Hero Search Suggestions (max 5)
   const heroSuggestions = useMemo(() => {
@@ -158,35 +193,42 @@ export default function HomePage() {
   return (
     <div className="bg-[#FAFAF7] text-[#171717] overflow-hidden">
       {/* ========================================================================= */}
-      {/* 01 — HERO: CINEMATIC ECOMMERCE DISCOVERY & INTERACTIVE SEARCH */}
+      {/* 01 — HERO: CINEMATIC LUXURY DISCOVERY & INTERACTIVE FORMULATION SHOWCASE */}
       {/* ========================================================================= */}
       <section
         ref={heroRef}
-        className="relative min-h-[85vh] flex flex-col justify-between pt-24 sm:pt-32 pb-10 px-4 sm:px-8 md:px-12 bg-[#FAFAF7] overflow-hidden border-b border-[#E6E2D9]"
+        className="relative min-h-[90vh] flex flex-col justify-between pt-24 sm:pt-32 pb-8 px-4 sm:px-8 md:px-12 bg-[#FAFAF7] overflow-hidden border-b border-[#E6E2D9]"
       >
-        {/* Subtle Radial Light Glow */}
+        {/* Subtle Ambient Radial Glow */}
         <div className="absolute top-1/4 right-1/4 w-[42rem] h-[42rem] bg-[#F2F0EA]/80 rounded-full blur-3xl pointer-events-none -z-0" />
+        <div className="absolute bottom-10 left-10 w-96 h-96 bg-[#E6E2D9]/30 rounded-full blur-3xl pointer-events-none -z-0" />
 
-        {/* Top Eyebrow Strip */}
-        <div className="container-editorial flex items-center justify-between z-10 mb-4 sm:mb-6">
+        {/* Top Heritage & Origin Bar */}
+        <div className="container-editorial flex flex-wrap items-center justify-between gap-3 z-10 mb-4 sm:mb-6">
           <div className="flex items-center gap-2.5">
-            <div className="w-6 h-6 rounded-md bg-white border border-[#E6E2D9] p-0.5 flex items-center justify-center shadow-2xs">
+            <div className="w-7 h-7 rounded-lg bg-white border border-[#E6E2D9] p-1 flex items-center justify-center shadow-2xs">
               <Image
                 src="/logo-transparent.png"
                 alt="SenseMe Official Seal"
-                width={20}
-                height={20}
+                width={22}
+                height={22}
                 className="object-contain"
               />
             </div>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#B89B6A] animate-pulse" />
-            <span className="font-mono text-[10px] md:text-xs tracking-[0.22em] uppercase text-[#686660] font-bold">
-              THE WORLD OF AROMA
+            <span className="font-mono text-[10px] md:text-xs tracking-[0.24em] uppercase text-[#171717] font-bold">
+              SENSEME INDIA • BOTANICAL DISTILLERY
             </span>
           </div>
-          <span className="font-mono text-[10px] md:text-xs tracking-[0.22em] uppercase text-[#686660] hidden sm:inline">
-            COIMBATORE • 195+ BOTANICAL FORMULATIONS
-          </span>
+
+          <div className="flex items-center gap-3 font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase text-[#686660]">
+            <span className="flex items-center gap-1.5 font-semibold text-[#B89B6A]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] animate-pulse" />
+              EST. COIMBATORE, TAMIL NADU
+            </span>
+            <span className="hidden md:inline border-l border-[#E6E2D9] pl-3">
+              195+ PURE BOTANICAL FORMULATIONS
+            </span>
+          </div>
         </div>
 
         {/* Main Hero Split Layout */}
@@ -194,41 +236,42 @@ export default function HomePage() {
           style={{ opacity: heroOpacity }}
           className="container-editorial my-auto py-6 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center z-10"
         >
-          {/* Left: Text & Interactive Search Bar */}
-          <div className="lg:col-span-6 space-y-5 sm:space-y-6">
+          {/* Left: Headline, Description, Search, and Category Pills */}
+          <div className="lg:col-span-6 space-y-6">
             <motion.div
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="space-y-3 sm:space-y-4"
             >
-              <h1 className="font-serif text-4xl sm:text-6xl lg:text-[4.2rem] font-bold text-[#171717] tracking-tight leading-[0.98] mb-3 sm:mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#E6E2D9] text-[#B89B6A] shadow-2xs font-mono text-[10px] sm:text-[11px] font-bold tracking-widest uppercase">
+                <Sparkles className="w-3.5 h-3.5 text-[#B89B6A]" />
+                PURE SENSORY SCIENCE & ARTISAN COMPOSITION
+              </div>
+
+              <h1 className="font-serif text-4xl sm:text-6xl lg:text-[4.3rem] font-bold text-[#171717] tracking-tight leading-[1.0] text-balance">
                 Crafted for the Way <br />
                 <span className="font-editorial italic font-normal text-[#B89B6A]">
                   Scent is
                 </span>{' '}
                 Experienced.
               </h1>
-            </motion.div>
 
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.25 }}
-              className="text-xs sm:text-base text-[#686660] font-sans leading-relaxed max-w-lg"
-            >
-              Single-origin steam-distilled essential oils, luxury ambient diffuser blends, and candle fragrances compounded with certified purity under Mylal Exports, Coimbatore.
-            </motion.p>
+              <p className="text-xs sm:text-base text-[#686660] font-sans leading-relaxed max-w-lg">
+                Single-origin steam-distilled essential oils, luxury ambient diffuser blends, and candle fragrances compounded with certified purity under Mylal Exports, Coimbatore.
+              </p>
+            </motion.div>
 
             {/* Interactive Search Bar on Hero */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.35 }}
+              transition={{ duration: 0.7, delay: 0.25 }}
               className="relative max-w-lg"
             >
               <form onSubmit={handleHeroSearchSubmit} className="relative">
-                <div className="flex items-center bg-white border border-[#E6E2D9] focus-within:border-[#171717] rounded shadow-sm transition-all overflow-hidden">
-                  <Search className="w-4 h-4 text-[#686660] ml-3.5 flex-shrink-0" />
+                <div className="flex items-center bg-white border border-[#E6E2D9] focus-within:border-[#B89B6A] focus-within:ring-2 focus-within:ring-[#B89B6A]/10 rounded-xl shadow-xs transition-all overflow-hidden p-1">
+                  <Search className="w-4 h-4 text-[#686660] ml-3 flex-shrink-0" />
                   <input
                     type="text"
                     placeholder="Search 195+ essential oils, diffuser blends, candle scents..."
@@ -236,7 +279,7 @@ export default function HomePage() {
                     onChange={(e) => setHeroSearch(e.target.value)}
                     onFocus={() => setHeroSearchFocused(true)}
                     onBlur={() => setTimeout(() => setHeroSearchFocused(false), 200)}
-                    className="w-full py-2.5 sm:py-3 px-3 text-xs sm:text-sm font-sans text-[#171717] placeholder:text-[#686660]/60 outline-none"
+                    className="w-full py-2.5 sm:py-3 px-3 text-xs sm:text-sm font-sans text-[#171717] placeholder:text-[#686660]/60 outline-none bg-transparent"
                   />
                   {heroSearch && (
                     <button
@@ -249,7 +292,7 @@ export default function HomePage() {
                   )}
                   <button
                     type="submit"
-                    className="bg-[#171717] text-white px-4 sm:px-5 py-2.5 sm:py-3 text-xs font-bold uppercase tracking-wider hover:bg-[#B89B6A] transition-colors whitespace-nowrap flex-shrink-0"
+                    className="bg-[#171717] text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-[#B89B6A] transition-colors whitespace-nowrap flex-shrink-0 shadow-2xs"
                   >
                     Search
                   </button>
@@ -263,30 +306,34 @@ export default function HomePage() {
                     initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 4 }}
-                    className="absolute left-0 right-0 top-full mt-1.5 bg-white border border-[#E6E2D9] rounded shadow-xl z-30 overflow-hidden divide-y divide-[#E6E2D9]"
+                    className="absolute left-0 right-0 top-full mt-2 bg-white border border-[#E6E2D9] rounded-xl shadow-xl z-40 overflow-hidden divide-y divide-[#E6E2D9]"
                   >
                     {heroSuggestions.map((sug) => (
                       <Link
                         key={sug.id}
                         href={`/product/${sug.slug}`}
-                        className="flex items-center gap-3 p-3 hover:bg-[#FAFAF7] transition-colors"
+                        className="flex items-center gap-3 p-3.5 hover:bg-[#FAFAF7] transition-colors group"
                       >
-                        <div className="w-10 h-10 rounded bg-[#FAFAF7] border border-[#E6E2D9] relative flex-shrink-0 overflow-hidden">
+                        <div className="w-10 h-10 rounded-lg bg-[#FAFAF7] border border-[#E6E2D9] relative flex-shrink-0 overflow-hidden">
                           {sug.images && sug.images[0] && (
                             <Image
                               src={sug.images[0]}
                               alt={sug.name}
                               fill
                               sizes="40px"
-                              className="object-contain p-0.5"
+                              className="object-contain p-0.5 group-hover:scale-105 transition-transform"
                             />
                           )}
                         </div>
                         <div className="overflow-hidden">
-                          <p className="font-serif font-bold text-sm text-[#171717] truncate">{sug.name}</p>
-                          <span className="font-mono text-[9px] text-[#686660] uppercase block">{sug.categoryName}</span>
+                          <p className="font-serif font-bold text-sm text-[#171717] group-hover:text-[#B89B6A] transition-colors truncate">
+                            {sug.name}
+                          </p>
+                          <span className="font-mono text-[9px] text-[#686660] uppercase block">
+                            {sug.categoryName} • {sug.sku}
+                          </span>
                         </div>
-                        <ArrowRight className="w-3.5 h-3.5 text-[#B89B6A] ml-auto flex-shrink-0" />
+                        <ArrowRight className="w-3.5 h-3.5 text-[#B89B6A] ml-auto flex-shrink-0 group-hover:translate-x-1 transition-transform" />
                       </Link>
                     ))}
                   </motion.div>
@@ -294,158 +341,197 @@ export default function HomePage() {
               </AnimatePresence>
             </motion.div>
 
-            {/* Quick Category Jump Pills linking directly to /shop?category=... */}
+            {/* Quick Category Jump Pills */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.45 }}
-              className="space-y-2 pt-1"
+              transition={{ duration: 0.7, delay: 0.35 }}
+              className="space-y-2.5 pt-1"
             >
               <span className="text-[10px] font-mono uppercase tracking-wider text-[#686660] font-bold block">
                 Popular Collections:
               </span>
               <div className="flex flex-wrap items-center gap-2">
                 {[
-                  { name: 'Essential Oils', slug: 'essential-oils' },
-                  { name: 'Diffuser Blends', slug: 'diffuser-blends' },
-                  { name: 'Candle Fragrance', slug: 'candle-making' },
-                  { name: 'Soap Essences', slug: 'fragrance-oils' },
-                  { name: 'Diffusers', slug: 'diffuser-machines' },
+                  { name: 'Essential Oils', slug: 'essential-oils', icon: '🌿' },
+                  { name: 'Diffuser Blends', slug: 'diffuser-blends', icon: '☁️' },
+                  { name: 'Candle Fragrance', slug: 'candle-making', icon: '🕯️' },
+                  { name: 'Soap Essences', slug: 'fragrance-oils', icon: '🧼' },
+                  { name: 'Diffusers', slug: 'diffuser-machines', icon: '⚡' },
                 ].map((item) => (
                   <Link
                     key={item.slug}
                     href={`/shop?category=${item.slug}`}
-                    className="text-[10px] sm:text-[11px] font-sans font-semibold px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white border border-[#E6E2D9] text-[#171717] hover:border-[#171717] hover:bg-[#FAFAF7] transition-all shadow-2xs"
+                    className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-sans font-semibold px-3 py-1.5 rounded-full bg-white border border-[#E6E2D9] text-[#171717] hover:border-[#B89B6A] hover:bg-[#FAFAF7] transition-all shadow-2xs hover:scale-102"
                   >
-                    {item.name}
+                    <span>{item.icon}</span>
+                    <span>{item.name}</span>
                   </Link>
                 ))}
               </div>
             </motion.div>
           </div>
 
-          {/* Right: Layered Product Composition (100% Clickable & Touch-Optimized) */}
-          <div className="lg:col-span-6 relative h-[340px] sm:h-[420px] md:h-[460px] flex items-center justify-center">
-            <div className="absolute inset-0 rounded-[var(--radius-xl)] bg-gradient-to-tr from-[#F2F0EA]/70 via-white/80 to-[#FAFAF7] border border-[#E6E2D9] shadow-sm pointer-events-none" />
+          {/* Right: Master Interactive Spotlight Hero Showcase */}
+          <div className="lg:col-span-6 flex flex-col items-center">
+            {/* Spotlight Formulation Switcher Tabs */}
+            <div className="w-full max-w-md flex items-center justify-between gap-1 p-1 bg-white border border-[#E6E2D9] rounded-xl mb-3 shadow-2xs">
+              {spotlightList.map((item, idx) => {
+                const isActive = activeSpotlightIdx === idx;
+                return (
+                  <button
+                    key={item.sku}
+                    onClick={() => setActiveSpotlightIdx(idx)}
+                    className={`flex-1 py-1.5 px-2 rounded-lg text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider transition-all duration-300 text-center truncate ${
+                      isActive
+                        ? 'bg-[#171717] text-white shadow-xs'
+                        : 'text-[#686660] hover:text-[#171717] hover:bg-[#FAFAF7]'
+                    }`}
+                  >
+                    {item.sku}
+                  </button>
+                );
+              })}
+            </div>
 
-            {/* Layer 3: Main Large Spotlight Product - 100% Clickable & Touch-Friendly */}
-            <motion.div
-              style={{ y: heroMainY }}
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-20 w-[270px] sm:w-[300px] md:w-[320px] max-w-[92%]"
-            >
-              <Link
-                href={`/product/${featuredLarge?.slug || 'luxury-hotel-fragrance-oil'}`}
-                className="block rounded-[var(--radius-lg)] bg-white border border-[#E6E2D9] hover:border-[#B89B6A] p-4 sm:p-5 shadow-xl hover:shadow-2xl transition-all duration-300 group cursor-pointer"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[9px] font-mono font-bold tracking-widest uppercase bg-[#FAFAF7] text-[#171717] group-hover:bg-[#171717] group-hover:text-white px-2.5 py-0.5 rounded border border-[#E6E2D9] transition-colors">
-                    SIGNATURE BLEND
-                  </span>
-                  <span className="font-mono text-[10px] text-[#686660] font-semibold">{featuredLarge?.sku || 'SMI-0527'}</span>
-                </div>
-
-                <div className="relative w-full h-[170px] sm:h-[210px] my-2 flex items-center justify-center bg-[#FAFAF7]/60 rounded-[var(--radius-md)] overflow-hidden">
-                  <Image
-                    src={featuredLarge?.images?.[0] || '/products/images/luxury-hotel-fragrance-oil-527-1.jpg'}
-                    alt={featuredLarge?.name || 'Luxury Hotel Fragrance Oil'}
-                    fill
-                    priority
-                    sizes="(max-width: 768px) 280px, 320px"
-                    className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-
-                <div className="flex items-center justify-between pt-3 border-t border-[#E6E2D9]">
-                  <div>
-                    <p className="font-serif font-bold text-sm sm:text-base text-[#171717] group-hover:text-[#B89B6A] transition-colors">
-                      {featuredLarge?.name || 'Luxury Hotel Fragrance Oil'}
-                    </p>
-                    <p className="text-[10px] font-mono text-[#686660] tracking-wider uppercase">
-                      Ambient Scenting • Cold Mist
-                    </p>
+            {/* Interactive Spotlight Podium Card */}
+            <div className="w-full max-w-md relative">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={spotlightList[activeSpotlightIdx].sku}
+                  initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -12, scale: 0.98 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="rounded-[var(--radius-xl)] bg-white border border-[#E6E2D9] hover:border-[#B89B6A] p-5 sm:p-6 shadow-xl hover:shadow-2xl transition-all duration-300 group relative overflow-hidden"
+                >
+                  {/* Card Header */}
+                  <div className="flex items-center justify-between mb-3 border-b border-[#E6E2D9] pb-3">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#B89B6A] animate-pulse" />
+                      <span className="text-[10px] font-mono font-bold tracking-widest uppercase bg-[#FAFAF7] text-[#171717] px-2.5 py-0.5 rounded border border-[#E6E2D9]">
+                        {spotlightList[activeSpotlightIdx].badge}
+                      </span>
+                    </div>
+                    <span className="font-mono text-xs text-[#686660] font-bold">
+                      {spotlightList[activeSpotlightIdx].sku}
+                    </span>
                   </div>
-                  <span className="w-8 h-8 rounded-full bg-[#171717] text-white group-hover:bg-[#B89B6A] flex items-center justify-center transition-colors flex-shrink-0 shadow-xs">
-                    <ArrowUpRight className="w-4 h-4" />
-                  </span>
-                </div>
-              </Link>
-            </motion.div>
 
-            {/* Layer 4: Secondary Product (Offset Left) */}
-            <motion.div
-              style={{ y: heroSecondaryY }}
-              initial={{ opacity: 0, x: -30, scale: 0.95 }}
-              animate={{ opacity: 1, x: 0, scale: 0.95 }}
-              transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute left-1 sm:left-4 -bottom-3 z-10 w-[160px] sm:w-[200px] rounded-[var(--radius-lg)] bg-white/95 backdrop-blur-md border border-[#E6E2D9] hover:border-[#B89B6A] p-3 shadow-lg hidden sm:block group transition-all"
-            >
-              <Link href={`/product/${featuredStacked1?.slug || 'basil-essential-oil'}`} className="block">
-                <span className="text-[8px] font-mono font-bold uppercase tracking-wider text-[#686660] block mb-1">
-                  100% STEAM DISTILLED
-                </span>
-                <div className="relative w-full h-[130px] my-1">
-                  <Image
-                    src={featuredStacked1?.images?.[0] || '/products/images/basil-essential-oil-192-1.jpg'}
-                    alt={featuredStacked1?.name || 'Basil Essential Oil'}
-                    fill
-                    sizes="200px"
-                    className="object-contain p-1 group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="flex items-center justify-between pt-1 border-t border-[#E6E2D9]/70">
-                  <p className="font-serif font-bold text-xs text-[#171717] truncate group-hover:text-[#B89B6A]">
-                    {featuredStacked1?.name || 'Basil Essential Oil'}
-                  </p>
-                  <ArrowUpRight className="w-3 h-3 text-[#686660] group-hover:text-[#171717]" />
-                </div>
-              </Link>
-            </motion.div>
+                  {/* Podium Image Stage */}
+                  <Link
+                    href={`/product/${spotlightList[activeSpotlightIdx].product?.slug || 'luxury-hotel-fragrance-oil'}`}
+                    scroll={true}
+                    className="block cursor-pointer"
+                  >
+                    <div className="relative w-full h-[200px] sm:h-[230px] my-2 flex items-center justify-center bg-gradient-to-b from-[#F7F6F2] via-[#FAF9F5] to-white rounded-[var(--radius-lg)] border border-[#E6E2D9]/70 overflow-hidden group-hover:border-[#B89B6A]/50 transition-colors">
+                      <Image
+                        src={
+                          spotlightList[activeSpotlightIdx].product?.images?.[0] ||
+                          '/products/images/luxury-hotel-fragrance-oil-527-1.jpg'
+                        }
+                        alt={spotlightList[activeSpotlightIdx].product?.name || 'Formulation'}
+                        fill
+                        priority
+                        sizes="(max-width: 768px) 320px, 400px"
+                        className="object-contain p-3 drop-shadow-md group-hover:scale-106 transition-transform duration-500"
+                      />
+                    </div>
+                  </Link>
 
-            {/* Layer 5: Tertiary Product (Offset Right) */}
-            <motion.div
-              style={{ y: heroTertiaryY }}
-              initial={{ opacity: 0, x: 30, scale: 0.95 }}
-              animate={{ opacity: 1, x: 0, scale: 0.95 }}
-              transition={{ duration: 1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute right-1 sm:right-4 -top-3 z-10 w-[160px] sm:w-[200px] rounded-[var(--radius-lg)] bg-white/95 backdrop-blur-md border border-[#E6E2D9] hover:border-[#B89B6A] p-3 shadow-lg hidden sm:block group transition-all"
-            >
-              <Link href={`/product/${featuredStacked2?.slug || 'bergamot-fragrance-oil-for-candle-making'}`} className="block">
-                <span className="text-[8px] font-mono font-bold uppercase tracking-wider text-[#686660] block mb-1">
-                  HIGH FLASHPOINT OIL
-                </span>
-                <div className="relative w-full h-[130px] my-1">
-                  <Image
-                    src={featuredStacked2?.images?.[0] || '/products/images/bergamot-fragrance-oil-for-candle-making-563-1.jpg'}
-                    alt={featuredStacked2?.name || 'Bergamot Candle Fragrance'}
-                    fill
-                    sizes="200px"
-                    className="object-contain p-1 group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="flex items-center justify-between pt-1 border-t border-[#E6E2D9]/70">
-                  <p className="font-serif font-bold text-xs text-[#171717] truncate group-hover:text-[#B89B6A]">
-                    {featuredStacked2?.name || 'Bergamot Candle Oil'}
-                  </p>
-                  <ArrowUpRight className="w-3 h-3 text-[#686660] group-hover:text-[#171717]" />
-                </div>
-              </Link>
-            </motion.div>
+                  {/* Product Title & Category */}
+                  <div className="pt-2">
+                    <Link
+                      href={`/product/${spotlightList[activeSpotlightIdx].product?.slug || 'luxury-hotel-fragrance-oil'}`}
+                      scroll={true}
+                      className="block group-hover:text-[#B89B6A] transition-colors"
+                    >
+                      <h3 className="font-serif text-lg sm:text-xl font-bold text-[#171717] leading-snug">
+                        {spotlightList[activeSpotlightIdx].product?.name}
+                      </h3>
+                      <p className="text-xs font-mono text-[#686660] tracking-wider uppercase mt-0.5">
+                        {spotlightList[activeSpotlightIdx].categoryLabel}
+                      </p>
+                    </Link>
+
+                    {/* Olfactory Notes Micro-Pills */}
+                    <div className="flex flex-wrap gap-1.5 my-3 pt-3 border-t border-[#E6E2D9]/70">
+                      {spotlightList[activeSpotlightIdx].notes.map((note) => (
+                        <span
+                          key={note}
+                          className="text-[9px] font-sans font-medium px-2 py-0.5 rounded bg-[#FAFAF7] border border-[#E6E2D9] text-[#686660]"
+                        >
+                          {note}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Action Buttons Row */}
+                    <div className="pt-2 flex items-center justify-between gap-3">
+                      <Link
+                        href={`/product/${spotlightList[activeSpotlightIdx].product?.slug || 'luxury-hotel-fragrance-oil'}`}
+                        scroll={true}
+                        className="btn-luxury-primary text-center py-2.5 px-4 text-xs font-bold flex-1 flex items-center justify-center gap-1.5"
+                      >
+                        Explore Details <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+
+                      <a
+                        href={`https://wa.me/919176360787?text=${encodeURIComponent(
+                          `Hello SenseMe India, I would like to inquire about ${spotlightList[activeSpotlightIdx].product?.name} (${spotlightList[activeSpotlightIdx].sku}).`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-luxury-outline py-2.5 px-3.5 text-xs font-bold flex items-center justify-center gap-1.5"
+                        title="Enquire on WhatsApp"
+                      >
+                        <MessageCircle className="w-3.5 h-3.5 text-[#25D366] fill-current" />
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
         </motion.div>
 
-        {/* Bottom Assurance Strip */}
-        <div className="container-editorial flex items-center justify-between text-xs font-mono text-[#686660] pt-4 border-t border-[#E6E2D9] z-10">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#B89B6A]" />
-            <span className="font-bold text-[#171717]">195+</span>
-            <span className="text-[10px] tracking-wider uppercase">Verified Formulations in Stock</span>
+        {/* 4-Pillar Luxury Trust & Laboratory Quality Bar */}
+        <div className="container-editorial pt-6 pb-2 border-t border-[#E6E2D9] z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-xs font-mono">
+            <div className="flex items-center gap-3 p-3 rounded-lg bg-white border border-[#E6E2D9] shadow-2xs">
+              <span className="w-8 h-8 rounded-md bg-[#FAFAF7] border border-[#E6E2D9] flex items-center justify-center text-sm font-bold text-[#B89B6A] flex-shrink-0">
+                195+
+              </span>
+              <div>
+                <span className="font-bold text-[#171717] block">Verified Formulations</span>
+                <span className="text-[10px] text-[#686660] uppercase">In Stock & Ready</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-3 rounded-lg bg-white border border-[#E6E2D9] shadow-2xs">
+              <Droplets className="w-5 h-5 text-[#B89B6A] flex-shrink-0 ml-1" />
+              <div>
+                <span className="font-bold text-[#171717] block">100% Steam Distilled</span>
+                <span className="text-[10px] text-[#686660] uppercase">Zero Synthetic Dilution</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-3 rounded-lg bg-white border border-[#E6E2D9] shadow-2xs">
+              <ShieldCheck className="w-5 h-5 text-[#B89B6A] flex-shrink-0 ml-1" />
+              <div>
+                <span className="font-bold text-[#171717] block">Pharmaceutical UV Glass</span>
+                <span className="text-[10px] text-[#686660] uppercase">15ml to 25kg UN Drums</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-3 rounded-lg bg-white border border-[#E6E2D9] shadow-2xs">
+              <Package className="w-5 h-5 text-[#B89B6A] flex-shrink-0 ml-1" />
+              <div>
+                <span className="font-bold text-[#171717] block">Pan-India Express</span>
+                <span className="text-[10px] text-[#686660] uppercase">Direct from Coimbatore</span>
+              </div>
+            </div>
           </div>
-          <span className="hidden sm:inline text-[10px] tracking-wider uppercase">
-            Mylal Exports • Coimbatore, Tamil Nadu
-          </span>
         </div>
       </section>
 

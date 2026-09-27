@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation';
 import { useData } from '@/lib/data-context';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import ProductCard from '@/components/ProductCard';
-import InteractiveOlfactoryPyramid from '@/components/InteractiveOlfactoryPyramid';
 import {
   Search,
   ArrowRight,
@@ -15,33 +14,35 @@ import {
   ChevronRight,
   Sparkles,
   Droplets,
-  Wind,
-  Plus,
-  Minus,
-  CheckCircle2,
+  Truck,
+  Leaf,
+  Headphones,
   ShieldCheck,
   Package,
   Layers,
   MapPin,
-  Flame,
-  Check,
   Building2,
   X,
-  Compass,
   MessageCircle,
+  Plus,
+  Minus,
+  CheckCircle2,
+  Flame,
+  Clock,
+  Award,
 } from 'lucide-react';
 
 export default function HomePage() {
   const router = useRouter();
-  const { products, categories } = useData();
+  const { products, categories, settings } = useData();
 
   // Hero Search State
   const [heroSearch, setHeroSearch] = useState('');
   const [heroSearchFocused, setHeroSearchFocused] = useState(false);
 
-  // In-page Discovery Filter
-  const [discoveryCategory, setDiscoveryCategory] = useState<string>('all');
-  const [discoverySearch, setDiscoverySearch] = useState<string>('');
+  // In-page Featured Products Filter
+  const [featuredCategory, setFeaturedCategory] = useState<string>('all');
+  const [featuredSearch, setFeaturedSearch] = useState<string>('');
 
   // Hero parallax scroll ref
   const heroRef = useRef<HTMLDivElement>(null);
@@ -50,13 +51,7 @@ export default function HomePage() {
     offset: ['start start', 'end start'],
   });
 
-  const heroMainY = useTransform(heroScrollProgress, [0, 1], ['0%', '15%']);
-  const heroSecondaryY = useTransform(heroScrollProgress, [0, 1], ['0%', '25%']);
-  const heroTertiaryY = useTransform(heroScrollProgress, [0, 1], ['0%', '10%']);
   const heroOpacity = useTransform(heroScrollProgress, [0, 0.85], [1, 0]);
-
-  // Manufacturing Step Interactive state
-  const [activeMfgStep, setActiveMfgStep] = useState(0);
 
   // FAQ Accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -73,7 +68,7 @@ export default function HomePage() {
       {
         product: p1,
         tabTitle: 'Hotel Fragrance (SMI-0527)',
-        badge: 'SIGNATURE BLEND',
+        badge: 'BESTSELLER • SIGNATURE BLEND',
         sku: p1?.sku || 'SMI-0527',
         categoryLabel: 'Ambient Scenting • Cold Mist',
         notes: ['Bergamot & Fig', 'White Tea & Lily', 'Amber & Cedar'],
@@ -82,16 +77,16 @@ export default function HomePage() {
       {
         product: p2,
         tabTitle: 'Pure Basil Oil (SMI-0192)',
-        badge: 'SINGLE BOTANICAL',
+        badge: '100% PURE BOTANICAL',
         sku: p2?.sku || 'SMI-0192',
-        categoryLabel: '100% Steam Distilled • Pure Extract',
+        categoryLabel: 'Single-Origin Steam Distilled',
         notes: ['Sweet Herbaceous', 'Camphorous Linalool', 'Spicy Warmth'],
         purity: 'Zero Solvents • 99.9% Purity GC-MS',
       },
       {
         product: p3,
         tabTitle: 'Bergamot Candle (SMI-0563)',
-        badge: 'CANDLE & SOAP',
+        badge: 'CANDLE & SOAP ESSENCE',
         sku: p3?.sku || 'SMI-0563',
         categoryLabel: 'High Flashpoint • Soy & Beeswax',
         notes: ['Calabrian Bergamot', 'Earl Grey Accord', 'Warm Woody Musk'],
@@ -122,71 +117,41 @@ export default function HomePage() {
     }
   };
 
-  // Live Homepage Discovery Products
-  const discoveryProducts = useMemo(() => {
+  // Curated Featured Products
+  const featuredProductsList = useMemo(() => {
     return products
       .filter((p) => {
-        const matchesCategory = discoveryCategory === 'all' || p.categoryId === discoveryCategory;
+        const matchesCategory = featuredCategory === 'all' || p.categoryId === featuredCategory;
         const matchesSearch =
-          !discoverySearch.trim() ||
-          p.name.toLowerCase().includes(discoverySearch.toLowerCase()) ||
-          p.shortDescription.toLowerCase().includes(discoverySearch.toLowerCase());
+          !featuredSearch.trim() ||
+          p.name.toLowerCase().includes(featuredSearch.toLowerCase()) ||
+          p.shortDescription.toLowerCase().includes(featuredSearch.toLowerCase()) ||
+          (p.sku && p.sku.toLowerCase().includes(featuredSearch.toLowerCase()));
         return matchesCategory && matchesSearch;
       })
       .slice(0, 8);
-  }, [products, discoveryCategory, discoverySearch]);
+  }, [products, featuredCategory, featuredSearch]);
 
-  const mfgSteps = [
+  const promotionalFaqs = [
     {
-      num: '01',
-      step: 'DEVELOP',
-      title: 'Botanical Origin Selection',
-      desc: 'Procurement of farm-harvested single botanicals synchronized with optimal phytochemical maturity.',
-      image: '/products/images/basil-essential-oil-192-1.jpg',
+      q: 'How do I avail Free Shipping across India?',
+      a: 'We offer complimentary, fully covered shipping across India on all online and trade inquiries. All orders are packed with heavy-duty cushioning and dispatched directly from our Coimbatore facility via express air/surface couriers.',
     },
     {
-      num: '02',
-      step: 'CREATE',
-      title: 'Low-Temperature Distillation',
-      desc: 'Temperature-regulated steam extraction in SS 316 distillation retorts to preserve volatile monoterpenes.',
-      image: '/products/images/luxury-hotel-fragrance-oil-527-1.jpg',
+      q: 'Are all SenseMe oils 100% natural and cruelty-free?',
+      a: 'Yes. Our botanical essential oils are 100% steam-distilled and cold-pressed with zero synthetic carriers, zero solvent residues, and absolutely zero animal testing. Full Certificates of Analysis (COA) and GC-MS test reports are provided on request.',
     },
     {
-      num: '03',
-      step: 'REFINE',
-      title: 'Quality & Optical Inspection',
-      desc: 'Testing optical rotation, specific gravity, and purity to guarantee consistent aromatic intensity.',
-      image: '/products/images/bergamot-fragrance-oil-for-candle-making-563-1.jpg',
+      q: 'How does WhatsApp Online Support & Ordering work?',
+      a: 'Simply browse any product or click "Chat on WhatsApp". Our expert formulation team in Coimbatore assists you in real-time with volume availability, batch pricing, GST billing, and immediate dispatch scheduling.',
     },
     {
-      num: '04',
-      step: 'DELIVER',
-      title: 'Amber UV Shielding & Dispatch',
-      desc: 'Pharmaceutical amber glass with tamper-evident seals and direct pan-India courier dispatch from Coimbatore.',
-      image: '/products/images/ultrasonic-aroma-diffuser-dark-brown-126-1.jpg',
-    },
-  ];
-
-  const faqs = [
-    {
-      q: 'What types of products does SenseMe India manufacture?',
-      a: 'We manufacture steam-distilled essential oils (90+ single botanicals), luxury ambient diffuser blends, concentrated fragrance oils for candles and cold-process soap, natural perfumes, and ultrasonic aroma machines in Coimbatore.',
+      q: 'Do you offer bulk wholesale supplies for manufacturers?',
+      a: 'Yes. Operating under Mylal Exports in Coimbatore, we supply tiered commercial quantities ranging from 1kg aluminium bottles to 25kg UN-certified drums for soap makers, candle crafters, cosmetic labs, and hotel aroma installations.',
     },
     {
-      q: 'How does ordering work without an online payment gateway?',
-      a: 'Browse our digital catalogue, select your desired sizes (15ml bottles to 25kg drums), and click "Buy Now on WhatsApp". Our team immediately provides real-time pricing, stock confirmation, GST billing, and swift courier dispatch.',
-    },
-    {
-      q: 'Are your fragrance oils tested for candle and soap making?',
-      a: 'Yes. Our specialized Fragrance Oils feature high flashpoints formulated specifically for cold-process soap saponification (no seizing) and soy/beeswax candle crafting with superior hot and cold scent throw.',
-    },
-    {
-      q: 'Do you offer bulk wholesale supplies and private labeling?',
-      a: 'Yes. Operating out of Coimbatore under Mylal Exports, we provide tiered volume wholesale (1kg aluminium bottles to 25kg drums) and full turnkey private-label contract manufacturing for hotels, spas, and retail brands.',
-    },
-    {
-      q: 'How are the oils packaged to ensure zero transit leakage?',
-      a: 'All oils are filled into heavy amber glass bottles with UV shielding, tamper-evident seals, and European orifice reducers. Larger consignments are sealed in UN-certified fluorinated aluminium drums.',
+      q: 'Can SenseMe handle custom OEM branding & private labeling?',
+      a: 'Absolutely. We provide end-to-end turnkey contract compounding, custom fragrance formulation, amber bottle filling, and private labeling with your custom brand identity.',
     },
   ];
 
@@ -246,7 +211,7 @@ export default function HomePage() {
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#E6E2D9] text-[#B89B6A] shadow-2xs font-mono text-[10px] sm:text-[11px] font-bold tracking-widest uppercase">
                 <Sparkles className="w-3.5 h-3.5 text-[#B89B6A]" />
-                PURE SENSORY SCIENCE & ARTISAN COMPOSITION
+                DIRECT BOTANICAL DISTILLATION & COMPOUNDING
               </div>
 
               <h1 className="font-serif text-4xl sm:text-6xl lg:text-[4.3rem] font-bold text-[#171717] tracking-tight leading-[1.0] text-balance">
@@ -477,7 +442,7 @@ export default function HomePage() {
                       </Link>
 
                       <a
-                        href={`https://wa.me/919176360787?text=${encodeURIComponent(
+                        href={`https://wa.me/${settings.whatsappNumber}?text=${encodeURIComponent(
                           `Hello SenseMe India, I would like to inquire about ${spotlightList[activeSpotlightIdx].product?.name} (${spotlightList[activeSpotlightIdx].sku}).`
                         )}`}
                         target="_blank"
@@ -495,7 +460,7 @@ export default function HomePage() {
           </div>
         </motion.div>
 
-        {/* 4-Pillar Luxury Trust & Laboratory Quality Bar */}
+        {/* 4-Pillar Luxury Trust & Quality Bar */}
         <div className="container-editorial pt-6 pb-2 border-t border-[#E6E2D9] z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-xs font-mono">
             <div className="flex items-center gap-3 p-3 rounded-lg bg-white border border-[#E6E2D9] shadow-2xs">
@@ -536,14 +501,163 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 02 — CURATED COLLECTIONS: THE 4 ESSENTIAL BOTANICAL PILLARS */}
+      {/* 02 — PROMOTIONAL VALUE PILLARS (FREE SHIPPING, 100% NATURAL, ONLINE CHAT) */}
+      {/* ========================================================================= */}
+      <section className="py-12 sm:py-16 bg-[#FFFFFF] border-b border-[#E6E2D9]">
+        <div className="container-editorial">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {/* Free Delivery */}
+            <div className="p-6 sm:p-7 rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] hover:border-[#B89B6A] transition-all group shadow-2xs">
+              <div className="w-12 h-12 rounded-2xl bg-white border border-[#E6E2D9] p-2.5 flex items-center justify-center text-[#B89B6A] group-hover:bg-[#171717] group-hover:text-white transition-colors mb-4 shadow-2xs">
+                <Truck className="w-6 h-6" />
+              </div>
+              <h3 className="font-serif text-xl font-bold text-[#171717] mb-1.5">
+                Free Delivery
+              </h3>
+              <p className="text-xs sm:text-sm text-[#686660] font-sans leading-relaxed">
+                Free shipping within India as we have covered it for you on retail & volume consignments.
+              </p>
+            </div>
+
+            {/* 100% Natural */}
+            <div className="p-6 sm:p-7 rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] hover:border-[#B89B6A] transition-all group shadow-2xs">
+              <div className="w-12 h-12 rounded-2xl bg-white border border-[#E6E2D9] p-2.5 flex items-center justify-center text-[#25D366] group-hover:bg-[#171717] group-hover:text-[#25D366] transition-colors mb-4 shadow-2xs">
+                <Leaf className="w-6 h-6" />
+              </div>
+              <h3 className="font-serif text-xl font-bold text-[#171717] mb-1.5">
+                100% Natural
+              </h3>
+              <p className="text-xs sm:text-sm text-[#686660] font-sans leading-relaxed">
+                100% natural botanical distillations. Zero synthetic solvents and zero animal testing.
+              </p>
+            </div>
+
+            {/* Online Support */}
+            <div className="p-6 sm:p-7 rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] hover:border-[#B89B6A] transition-all group shadow-2xs">
+              <div className="w-12 h-12 rounded-2xl bg-white border border-[#E6E2D9] p-2.5 flex items-center justify-center text-[#171717] group-hover:bg-[#25D366] group-hover:text-white transition-colors mb-4 shadow-2xs">
+                <MessageCircle className="w-6 h-6" />
+              </div>
+              <h3 className="font-serif text-xl font-bold text-[#171717] mb-1.5">
+                Online Support
+              </h3>
+              <p className="text-xs sm:text-sm text-[#686660] font-sans leading-relaxed">
+                Direct live chat on WhatsApp for real-time stock confirmation, custom blending & GST billing.
+              </p>
+            </div>
+
+            {/* Direct Manufacturer */}
+            <div className="p-6 sm:p-7 rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] hover:border-[#B89B6A] transition-all group shadow-2xs">
+              <div className="w-12 h-12 rounded-2xl bg-white border border-[#E6E2D9] p-2.5 flex items-center justify-center text-[#B89B6A] group-hover:bg-[#171717] group-hover:text-[#B89B6A] transition-colors mb-4 shadow-2xs">
+                <Building2 className="w-6 h-6" />
+              </div>
+              <h3 className="font-serif text-xl font-bold text-[#171717] mb-1.5">
+                Direct Lab Supply
+              </h3>
+              <p className="text-xs sm:text-sm text-[#686660] font-sans leading-relaxed">
+                Direct laboratory pricing from Coimbatore under Mylal Exports with verified volume savings.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 03 — FEATURED PRODUCTS (CURATED BESTSELLERS & PRIMARY SHOWCASE) */}
+      {/* ========================================================================= */}
+      <section className="py-16 sm:py-24 bg-[#FAFAF7] border-b border-[#E6E2D9]">
+        <div className="container-editorial">
+          <div className="border-b border-[#E6E2D9] pb-6 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-white border border-[#E6E2D9] text-[#B89B6A] font-mono text-[10px] font-bold tracking-widest uppercase mb-2">
+                <Sparkles className="w-3 h-3 text-[#B89B6A]" /> BEST-SELLING FORMULATIONS
+              </div>
+              <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717]">
+                Featured Products
+              </h2>
+            </div>
+            <Link
+              href="/shop"
+              className="text-xs font-mono font-bold uppercase tracking-wider text-[#171717] hover:text-[#B89B6A] flex items-center gap-1 transition-colors self-start md:self-auto"
+            >
+              View Full Shop Directory ({products.length}) <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* In-Page Filter Pills & Live Search */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none py-1">
+              <button
+                onClick={() => setFeaturedCategory('all')}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider font-sans whitespace-nowrap transition-all ${
+                  featuredCategory === 'all'
+                    ? 'bg-[#171717] text-white shadow-xs'
+                    : 'bg-white text-[#686660] hover:bg-[#F2F0EA] border border-[#E6E2D9]'
+                }`}
+              >
+                All Featured ({products.length})
+              </button>
+              {categories.map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => setFeaturedCategory(c.id)}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider font-sans whitespace-nowrap transition-all ${
+                    featuredCategory === c.id
+                      ? 'bg-[#171717] text-white shadow-xs'
+                      : 'bg-white text-[#686660] hover:bg-[#F2F0EA] border border-[#E6E2D9]'
+                  }`}
+                >
+                  {c.name}
+                </button>
+              ))}
+            </div>
+
+            <div className="relative w-full sm:w-64">
+              <Search className="w-3.5 h-3.5 text-[#686660] absolute left-3 top-3" />
+              <input
+                type="text"
+                placeholder="Filter by scent or name..."
+                value={featuredSearch}
+                onChange={(e) => setFeaturedSearch(e.target.value)}
+                className="w-full pl-8 pr-8 py-2 bg-white border border-[#E6E2D9] rounded text-xs text-[#171717] placeholder:text-[#686660]/60 outline-none focus:border-[#171717]"
+              />
+              {featuredSearch && (
+                <button
+                  onClick={() => setFeaturedSearch('')}
+                  className="absolute right-2.5 top-2.5 text-xs text-[#686660]"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Featured Product Cards Grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6">
+            {featuredProductsList.map((product, idx) => (
+              <ProductCard key={product.id} product={product} index={idx} aspect="tall" />
+            ))}
+          </div>
+
+          <div className="pt-10 text-center">
+            <Link
+              href={featuredCategory === 'all' ? '/shop' : `/shop?category=${categories.find(c => c.id === featuredCategory)?.slug || 'all'}`}
+              className="btn-luxury-primary text-xs py-3.5 px-8 inline-flex items-center gap-2"
+            >
+              Explore Complete 195+ Formulations <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 04 — CURATED COLLECTIONS: THE 4 ESSENTIAL BOTANICAL PILLARS */}
       {/* ========================================================================= */}
       <section className="py-16 sm:py-24 bg-[#FFFFFF] border-b border-[#E6E2D9]">
         <div className="container-editorial">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 gap-4">
             <div>
               <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block mb-1">
-                02 / THE ARCHIVE
+                04 / BOTANICAL DISCIPLINES
               </span>
               <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717] tracking-tight">
                 Curated Collections
@@ -553,7 +667,7 @@ export default function HomePage() {
               href="/shop"
               className="text-xs font-mono font-bold uppercase tracking-wider text-[#171717] hover:text-[#B89B6A] flex items-center gap-1 transition-colors self-start md:self-auto"
             >
-              Explore All 195+ Formulations <ArrowRight className="w-3.5 h-3.5" />
+              Explore Full Catalogue <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
@@ -564,7 +678,7 @@ export default function HomePage() {
                 num: '01',
                 title: 'Pure Essential Oils',
                 categorySlug: 'essential-oils',
-                desc: 'Single-origin steam-distilled botanicals with verified therapeutic terpenes.',
+                desc: 'Single-origin steam-distilled botanicals with verified therapeutic purity.',
                 count: '90+ Oils',
                 img: '/products/images/basil-essential-oil-192-1.jpg',
               },
@@ -639,207 +753,16 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 03 — MASTER CATALOGUE EXPLORER (PRIMARY INTERACTIVE PRODUCT SHOWCASE) */}
+      {/* 05 — BUSINESS SOLUTIONS: WHOLESALE & PRIVATE LABEL OEM */}
       {/* ========================================================================= */}
       <section className="py-16 sm:py-24 bg-[#FAFAF7] border-b border-[#E6E2D9]">
-        <div className="container-editorial">
-          <div className="border-b border-[#E6E2D9] pb-6 mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-              <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block mb-1">
-                03 / LIVE CATALOGUE EXPLORER
-              </span>
-              <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717]">
-                Master Laboratory Formulations
-              </h2>
-            </div>
-            <Link
-              href="/shop"
-              className="text-xs font-mono font-bold uppercase tracking-wider text-[#171717] hover:text-[#B89B6A] flex items-center gap-1 transition-colors self-start md:self-auto"
-            >
-              Open Full Shop Directory ({products.length}) <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          {/* In-Page Filter Pills & Live Search */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none py-1">
-              <button
-                onClick={() => setDiscoveryCategory('all')}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider font-sans whitespace-nowrap transition-all ${
-                  discoveryCategory === 'all'
-                    ? 'bg-[#171717] text-white shadow-xs'
-                    : 'bg-white text-[#686660] hover:bg-[#F2F0EA] border border-[#E6E2D9]'
-                }`}
-              >
-                All ({products.length})
-              </button>
-              {categories.map((c) => (
-                <button
-                  key={c.id}
-                  onClick={() => setDiscoveryCategory(c.id)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider font-sans whitespace-nowrap transition-all ${
-                    discoveryCategory === c.id
-                      ? 'bg-[#171717] text-white shadow-xs'
-                      : 'bg-white text-[#686660] hover:bg-[#F2F0EA] border border-[#E6E2D9]'
-                  }`}
-                >
-                  {c.name}
-                </button>
-              ))}
-            </div>
-
-            <div className="relative w-full sm:w-64">
-              <Search className="w-3.5 h-3.5 text-[#686660] absolute left-3 top-3" />
-              <input
-                type="text"
-                placeholder="Filter by scent or name..."
-                value={discoverySearch}
-                onChange={(e) => setDiscoverySearch(e.target.value)}
-                className="w-full pl-8 pr-8 py-2 bg-white border border-[#E6E2D9] rounded text-xs text-[#171717] placeholder:text-[#686660]/60 outline-none focus:border-[#171717]"
-              />
-              {discoverySearch && (
-                <button
-                  onClick={() => setDiscoverySearch('')}
-                  className="absolute right-2.5 top-2.5 text-xs text-[#686660]"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Discovery Product Cards Grid (Optimized 2-col on mobile, 4-col on desktop) */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-6">
-            {discoveryProducts.map((product, idx) => (
-              <ProductCard key={product.id} product={product} index={idx} aspect="tall" />
-            ))}
-          </div>
-
-          <div className="pt-10 text-center">
-            <Link
-              href={discoveryCategory === 'all' ? '/shop' : `/shop?category=${categories.find(c => c.id === discoveryCategory)?.slug || 'all'}`}
-              className="btn-luxury-primary text-xs py-3.5 px-8 inline-flex items-center gap-2"
-            >
-              View More in This Category <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 04 — SENSORY ARCHITECTURE: 3D OLFACTORY NOTES PYRAMID */}
-      {/* ========================================================================= */}
-      <section className="py-16 sm:py-24 bg-[#FFFFFF] border-b border-[#E6E2D9]">
-        <div className="container-editorial">
-          <InteractiveOlfactoryPyramid />
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 05 — MANUFACTURING STORY: "MADE WITH PURPOSE" */}
-      {/* ========================================================================= */}
-      <section className="py-16 sm:py-24 bg-[#FAFAF7] border-b border-[#E6E2D9]">
-        <div className="container-editorial">
-          <div className="border-b border-[#E6E2D9] pb-6 mb-10 sm:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div className="flex items-center gap-3.5">
-              <div className="w-12 h-12 rounded-xl bg-white border border-[#E6E2D9] p-1.5 flex items-center justify-center shadow-2xs flex-shrink-0">
-                <Image
-                  src="/logo-transparent.png"
-                  alt="SenseMe Craftsmanship Hallmark"
-                  width={38}
-                  height={38}
-                  className="object-contain"
-                />
-              </div>
-              <div>
-                <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block mb-1">
-                  05 / CRAFTSMANSHIP
-                </span>
-                <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717]">
-                  Made with Purpose.
-                </h2>
-              </div>
-            </div>
-            <Link
-              href="/manufacturing"
-              className="text-xs font-mono font-bold uppercase tracking-wider text-[#171717] hover:text-[#B89B6A] flex items-center gap-1"
-            >
-              Detailed Manufacturing Portal <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-
-          {/* 4 Step Sequence Split */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-center">
-            <div className="lg:col-span-6 space-y-3">
-              {mfgSteps.map((s, idx) => {
-                const isActive = activeMfgStep === idx;
-                return (
-                  <button
-                    key={s.num}
-                    onClick={() => setActiveMfgStep(idx)}
-                    className={`w-full text-left p-4 sm:p-5 rounded-[var(--radius-lg)] border transition-all duration-300 relative ${
-                      isActive
-                        ? 'bg-white border-[#171717] shadow-xs ring-1 ring-[#171717]'
-                        : 'bg-[#F2F0EA]/60 border-[#E6E2D9] hover:border-[#B89B6A]'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="font-mono text-[10px] font-bold tracking-widest text-[#B89B6A] uppercase">
-                        {s.step}
-                      </span>
-                      <span className="text-xs font-mono text-[#686660]">0{idx + 1} / 04</span>
-                    </div>
-                    <h3 className="font-serif text-lg sm:text-xl font-bold text-[#171717]">{s.title}</h3>
-                    {isActive && (
-                      <p className="text-xs text-[#686660] font-sans leading-relaxed pt-2 mt-2 border-t border-[#E6E2D9]">
-                        {s.desc}
-                      </p>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="lg:col-span-6">
-              <div className="w-full aspect-[4/3] rounded-[var(--radius-xl)] bg-white border border-[#E6E2D9] p-6 shadow-sm relative overflow-hidden flex items-center justify-center">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeMfgStep}
-                    initial={{ opacity: 0, scale: 0.94 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.94 }}
-                    transition={{ duration: 0.3 }}
-                    className="w-full h-full relative"
-                  >
-                    <Image
-                      src={mfgSteps[activeMfgStep].image}
-                      alt={mfgSteps[activeMfgStep].title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 500px"
-                      className="object-contain p-4"
-                    />
-                    <div className="absolute top-3 left-3 font-mono text-[9px] uppercase tracking-widest text-[#686660] bg-white/95 px-2.5 py-1 rounded border border-[#E6E2D9]">
-                      STAGE: {mfgSteps[activeMfgStep].step}
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 06 — BUSINESS SOLUTIONS: WHOLESALE & PRIVATE LABEL OEM */}
-      {/* ========================================================================= */}
-      <section className="py-16 sm:py-24 bg-[#FFFFFF] border-b border-[#E6E2D9]">
         <div className="container-editorial">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-stretch">
             {/* Wholesale */}
-            <div className="p-6 sm:p-10 rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] space-y-4 sm:space-y-5 shadow-2xs flex flex-col justify-between">
+            <div className="p-6 sm:p-10 rounded-[var(--radius-xl)] bg-white border border-[#E6E2D9] space-y-4 sm:space-y-5 shadow-2xs flex flex-col justify-between">
               <div className="space-y-3">
                 <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block">
-                  06A / B2B BULK SUPPLY
+                  05A / B2B BULK PROCUREMENT
                 </span>
                 <h3 className="font-serif text-2xl sm:text-4xl font-bold text-[#171717] tracking-tight">
                   Built for Manufacturing & Hospitality.
@@ -847,6 +770,11 @@ export default function HomePage() {
                 <p className="text-xs sm:text-sm text-[#686660] font-sans leading-relaxed">
                   Direct supply from 1kg aluminium bottles to 25kg UN drums for soap artisans, candle crafters, cosmetic laboratories, and luxury hotel ambient scenting.
                 </p>
+                <div className="flex flex-wrap gap-2 pt-1 font-mono text-[10px] text-[#686660] uppercase">
+                  <span className="px-2.5 py-1 bg-[#FAFAF7] rounded border border-[#E6E2D9]">✓ 1kg to 25kg Drums</span>
+                  <span className="px-2.5 py-1 bg-[#FAFAF7] rounded border border-[#E6E2D9]">✓ GST Billing</span>
+                  <span className="px-2.5 py-1 bg-[#FAFAF7] rounded border border-[#E6E2D9]">✓ Fast Courier Dispatch</span>
+                </div>
               </div>
               <div className="pt-2">
                 <Link href="/wholesale" className="btn-luxury-primary text-xs py-3.5 px-7 inline-flex items-center gap-2">
@@ -856,10 +784,10 @@ export default function HomePage() {
             </div>
 
             {/* Rebranding */}
-            <div className="p-6 sm:p-10 rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] space-y-4 sm:space-y-5 shadow-2xs flex flex-col justify-between">
+            <div className="p-6 sm:p-10 rounded-[var(--radius-xl)] bg-white border border-[#E6E2D9] space-y-4 sm:space-y-5 shadow-2xs flex flex-col justify-between">
               <div className="space-y-3">
                 <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block">
-                  06B / PRIVATE LABEL OEM
+                  05B / PRIVATE LABEL OEM
                 </span>
                 <h3 className="font-serif text-2xl sm:text-4xl font-bold text-[#171717] tracking-tight">
                   Your Signature Brand. Our Formulation.
@@ -867,6 +795,11 @@ export default function HomePage() {
                 <p className="text-xs sm:text-sm text-[#686660] font-sans leading-relaxed">
                   Launch bespoke perfume, room spray, or diffuser lines. We manage custom compounding, batch safety, bottle packaging, and OEM private labeling from Coimbatore.
                 </p>
+                <div className="flex flex-wrap gap-2 pt-1 font-mono text-[10px] text-[#686660] uppercase">
+                  <span className="px-2.5 py-1 bg-[#FAFAF7] rounded border border-[#E6E2D9]">✓ Custom Perfume Flacons</span>
+                  <span className="px-2.5 py-1 bg-[#FAFAF7] rounded border border-[#E6E2D9]">✓ Batch Sample Kits</span>
+                  <span className="px-2.5 py-1 bg-[#FAFAF7] rounded border border-[#E6E2D9]">✓ Turnkey OEM Packaging</span>
+                </div>
               </div>
               <div className="pt-2">
                 <Link href="/rebranding" className="btn-luxury-outline text-xs py-3.5 px-7 inline-flex items-center gap-2">
@@ -879,7 +812,52 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 07 — EDITORIAL ACCORDION FAQ */}
+      {/* 06 — 3-STEP WHATSAPP ORDERING CONCIERGE */}
+      {/* ========================================================================= */}
+      <section className="py-16 sm:py-24 bg-[#FFFFFF] border-b border-[#E6E2D9]">
+        <div className="container-editorial">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3">
+            <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block">
+              06 / SEAMLESS PROCUREMENT
+            </span>
+            <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717] tracking-tight">
+              Simple 3-Step WhatsApp Commerce
+            </h2>
+            <p className="text-xs sm:text-sm text-[#686660] font-sans leading-relaxed">
+              Order individual bottles or bulk manufacturing consignments directly with real-time stock confirmation.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            <div className="p-7 rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] space-y-3 relative">
+              <span className="font-serif text-3xl font-bold text-[#B89B6A]">01</span>
+              <h3 className="font-serif text-xl font-bold text-[#171717]">Select Formulations</h3>
+              <p className="text-xs sm:text-sm text-[#686660] leading-relaxed font-sans">
+                Browse our 195+ catalog of single botanicals, ambient diffuser blends, or candle making fragrances.
+              </p>
+            </div>
+
+            <div className="p-7 rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] space-y-3 relative">
+              <span className="font-serif text-3xl font-bold text-[#25D366]">02</span>
+              <h3 className="font-serif text-xl font-bold text-[#171717]">Chat on WhatsApp</h3>
+              <p className="text-xs sm:text-sm text-[#686660] leading-relaxed font-sans">
+                Click &quot;Buy Now on WhatsApp&quot; to connect directly with our Coimbatore lab for instant quote & GST billing.
+              </p>
+            </div>
+
+            <div className="p-7 rounded-[var(--radius-xl)] bg-[#FAFAF7] border border-[#E6E2D9] space-y-3 relative">
+              <span className="font-serif text-3xl font-bold text-[#171717]">03</span>
+              <h3 className="font-serif text-xl font-bold text-[#171717]">Insured Pan-India Dispatch</h3>
+              <p className="text-xs sm:text-sm text-[#686660] leading-relaxed font-sans">
+                Zero-leakage amber glass bottles or UN drums dispatched within 24–48 hours with free tracking.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 07 — PROMOTIONAL FAQ ACCORDION */}
       {/* ========================================================================= */}
       <section className="py-16 sm:py-24 bg-[#FAFAF7] border-b border-[#E6E2D9]">
         <div className="container-editorial">
@@ -892,12 +870,22 @@ export default function HomePage() {
                 Frequently Answered
               </h2>
               <p className="text-xs sm:text-sm text-[#686660] font-sans leading-relaxed">
-                Clear answers regarding WhatsApp ordering, bulk MOQs, laboratory distillation, and shipping protocols.
+                Clear answers regarding free shipping, bulk volumes, GC-MS testing, and WhatsApp ordering protocols.
               </p>
+              <div className="pt-2">
+                <a
+                  href={`https://wa.me/${settings.whatsappNumber}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-luxury-outline text-xs py-3 px-6 inline-flex items-center gap-2"
+                >
+                  <MessageCircle className="w-4 h-4 text-[#25D366] fill-current" /> Have a Specific Question?
+                </a>
+              </div>
             </div>
 
             <div className="lg:col-span-7 divide-y divide-[#E6E2D9] border-t border-b border-[#E6E2D9]">
-              {faqs.map((faq, i) => (
+              {promotionalFaqs.map((faq, i) => (
                 <div key={i} className="py-4 sm:py-5">
                   <button
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}

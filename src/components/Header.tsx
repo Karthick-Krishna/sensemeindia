@@ -26,6 +26,7 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [mobileExploreOpen, setMobileExploreOpen] = useState(false);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -258,7 +259,7 @@ export default function Header() {
                 href="/contact"
                 className="hidden sm:inline-flex items-center justify-center text-xs font-mono font-bold uppercase tracking-wider py-2 px-4 bg-white border border-[#E6E2D9] text-[#171717] hover:bg-[#171717] hover:text-white transition-colors"
               >
-                Contact
+                Contact Us
               </Link>
 
               {/* Mobile Hamburger Button */}
@@ -392,24 +393,65 @@ export default function Header() {
             </div>
 
             {/* Mobile Dedicated Navigation Links */}
-            <div className="my-auto py-8 space-y-4 font-serif text-2xl sm:text-3xl font-bold">
+            <div className="my-auto py-6 space-y-3 font-serif">
+              {/* Explore Products Dropdown Accordion */}
+              <div className="border-b border-[#E6E2D9]/70 pb-3">
+                <button
+                  onClick={() => setMobileExploreOpen(!mobileExploreOpen)}
+                  className="w-full flex items-center justify-between text-2xl sm:text-3xl font-bold text-[#171717] hover:text-[#B89B6A] transition-colors py-1 text-left"
+                >
+                  <span>Explore Products</span>
+                  <ChevronDown
+                    className={`w-5 h-5 text-[#B89B6A] transition-transform duration-300 ${
+                      mobileExploreOpen ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+
+                <AnimatePresence>
+                  {mobileExploreOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="overflow-hidden pl-3 pt-3 space-y-2 font-sans"
+                    >
+                      {[
+                        { name: 'Shop All', href: '/shop' },
+                        { name: 'Essential Oils', href: '/shop?category=essential-oils' },
+                        { name: 'Diffuser Blends', href: '/shop?category=diffuser-blends' },
+                        { name: 'Fragrance Oils', href: '/shop?category=fragrance-oils' },
+                        { name: 'Candle Making', href: '/shop?category=candle-making' },
+                      ].map((sub) => (
+                        <Link
+                          key={sub.name}
+                          href={sub.href}
+                          onClick={() => setMobileNavOpen(false)}
+                          className="flex items-center justify-between py-2 text-sm sm:text-base font-semibold text-[#686660] hover:text-[#171717] hover:translate-x-1 transition-all border-b border-[#E6E2D9]/40 last:border-b-0"
+                        >
+                          <span>{sub.name}</span>
+                          <ArrowRight className="w-3.5 h-3.5 text-[#B89B6A]" />
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Core Institutional & Business Navigation Links */}
               {[
-                { name: 'Shop All', href: '/shop' },
-                { name: 'Essential Oils', href: '/shop?category=essential-oils' },
-                { name: 'Diffuser Blends', href: '/shop?category=diffuser-blends' },
-                { name: 'Fragrance Oils', href: '/shop?category=fragrance-oils' },
-                { name: 'Candle Making', href: '/shop?category=candle-making' },
                 { name: 'Manufacturing', href: '/manufacturing' },
                 { name: 'Applications', href: '/applications' },
                 { name: 'About SenseMe', href: '/about' },
                 { name: 'Business B2B', href: '/wholesale' },
-                { name: 'Contact Lab', href: '/contact' },
+                { name: 'Contact Us', href: '/contact' },
               ].map((item) => (
-                <div key={item.name} className="border-b border-[#E6E2D9]/60 pb-3">
+                <div key={item.name} className="border-b border-[#E6E2D9]/70 pb-3">
                   <Link
                     href={item.href}
                     onClick={() => setMobileNavOpen(false)}
-                    className="flex items-center justify-between text-[#171717] hover:text-[#B89B6A] transition-colors"
+                    className="flex items-center justify-between text-2xl sm:text-3xl font-bold text-[#171717] hover:text-[#B89B6A] transition-colors py-1"
                   >
                     <span>{item.name}</span>
                     <ArrowUpRight className="w-5 h-5 text-[#B89B6A]" />

@@ -154,7 +154,7 @@ export default function FaqPage() {
             </p>
           </div>
           <Link href="/contact" className="btn-luxury-primary text-xs py-3 px-6 whitespace-nowrap">
-            Contact Lab Studio →
+            Contact Us →
           </Link>
         </div>
       </div>

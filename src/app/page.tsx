@@ -34,7 +34,7 @@ import {
 
 export default function HomePage() {
   const router = useRouter();
-  const { products, categories, reviews } = useData();
+  const { products, categories } = useData();
 
   // Hero Search State
   const [heroSearch, setHeroSearch] = useState('');
@@ -59,13 +59,8 @@ export default function HomePage() {
   // Manufacturing Step Interactive state
   const [activeMfgStep, setActiveMfgStep] = useState(0);
 
-  // Testimonials Carousel state
-  const [activeReviewIdx, setActiveReviewIdx] = useState(0);
-
   // FAQ Accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-
-  const activeReview = reviews[activeReviewIdx] || reviews[0];
 
   // Selected Featured Products for Showcase (1 large + 2 stacked)
   const featuredLarge = products.find((p) => p.slug === 'luxury-hotel-fragrance-oil-527') || products[0];
@@ -322,49 +317,54 @@ export default function HomePage() {
             </motion.div>
           </div>
 
-          {/* Right: Layered Product Composition */}
-          <div className="lg:col-span-6 relative h-[380px] sm:h-[480px] flex items-center justify-center">
-            <div className="absolute inset-0 rounded-[var(--radius-xl)] bg-gradient-to-tr from-[#F2F0EA]/70 via-white/80 to-[#FAFAF7] border border-[#E6E2D9] shadow-sm" />
+          {/* Right: Layered Product Composition (100% Clickable & Touch-Optimized) */}
+          <div className="lg:col-span-6 relative h-[360px] sm:h-[440px] md:h-[480px] flex items-center justify-center">
+            <div className="absolute inset-0 rounded-[var(--radius-xl)] bg-gradient-to-tr from-[#F2F0EA]/70 via-white/80 to-[#FAFAF7] border border-[#E6E2D9] shadow-sm pointer-events-none" />
 
-            {/* Layer 3: Main Large Spotlight Product */}
+            {/* Layer 3: Main Large Spotlight Product - 100% Clickable & Touch-Friendly */}
             <motion.div
               style={{ y: heroMainY }}
-              initial={{ opacity: 0, scale: 1.08 }}
+              initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute z-20 w-[220px] sm:w-[280px] h-[300px] sm:h-[360px] rounded-[var(--radius-lg)] bg-white border border-[#E6E2D9] p-4 shadow-xl flex flex-col justify-between group"
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="relative z-20 w-[270px] sm:w-[300px] md:w-[320px] max-w-[92%]"
             >
-              <div className="flex items-center justify-between">
-                <span className="text-[9px] font-mono font-bold tracking-widest uppercase bg-[#FAFAF7] text-[#171717] px-2 py-0.5 rounded border border-[#E6E2D9]">
-                  SIGNATURE BLEND
-                </span>
-                <span className="font-mono text-[9px] text-[#686660]">SMI-0527</span>
-              </div>
-
-              <div className="relative w-full h-[180px] sm:h-[220px] my-auto flex items-center justify-center">
-                <Image
-                  src="/products/images/luxury-hotel-fragrance-oil-527-1.jpg"
-                  alt="Luxury Hotel Fragrance Oil"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, 280px"
-                  className="object-contain p-2 group-hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-
-              <div className="flex items-center justify-between pt-2 border-t border-[#E6E2D9]">
-                <div>
-                  <p className="font-serif font-bold text-sm text-[#171717]">Luxury Hotel Fragrance</p>
-                  <p className="text-[10px] font-mono text-[#686660]">Ambient Scenting</p>
+              <Link
+                href="/product/luxury-hotel-fragrance-oil-527"
+                className="block rounded-[var(--radius-lg)] bg-white border border-[#E6E2D9] hover:border-[#B89B6A] p-4 sm:p-5 shadow-xl hover:shadow-2xl transition-all duration-300 group cursor-pointer"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[9px] font-mono font-bold tracking-widest uppercase bg-[#FAFAF7] text-[#171717] group-hover:bg-[#171717] group-hover:text-white px-2.5 py-0.5 rounded border border-[#E6E2D9] transition-colors">
+                    SIGNATURE BLEND
+                  </span>
+                  <span className="font-mono text-[10px] text-[#686660] font-semibold">SMI-0527</span>
                 </div>
-                <Link
-                  href="/product/luxury-hotel-fragrance-oil-527"
-                  className="p-2 rounded-full bg-[#171717] text-white hover:bg-[#B89B6A] transition-colors"
-                  aria-label="View Product"
-                >
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
+
+                <div className="relative w-full h-[180px] sm:h-[220px] my-2 flex items-center justify-center bg-[#FAFAF7]/60 rounded-[var(--radius-md)] overflow-hidden">
+                  <Image
+                    src="/products/images/luxury-hotel-fragrance-oil-527-1.jpg"
+                    alt="Luxury Hotel Fragrance Oil"
+                    fill
+                    priority
+                    sizes="(max-width: 768px) 280px, 320px"
+                    className="object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+
+                <div className="flex items-center justify-between pt-3 border-t border-[#E6E2D9]">
+                  <div>
+                    <p className="font-serif font-bold text-sm sm:text-base text-[#171717] group-hover:text-[#B89B6A] transition-colors">
+                      Luxury Hotel Fragrance Oil
+                    </p>
+                    <p className="text-[10px] font-mono text-[#686660] tracking-wider uppercase">
+                      Ambient Scenting • Cold Mist
+                    </p>
+                  </div>
+                  <span className="w-8 h-8 rounded-full bg-[#171717] text-white group-hover:bg-[#B89B6A] flex items-center justify-center transition-colors flex-shrink-0 shadow-xs">
+                    <ArrowUpRight className="w-4 h-4" />
+                  </span>
+                </div>
+              </Link>
             </motion.div>
 
             {/* Layer 4: Secondary Product (Offset Left) */}
@@ -372,22 +372,27 @@ export default function HomePage() {
               style={{ y: heroSecondaryY }}
               initial={{ opacity: 0, x: -30, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 0.95 }}
-              transition={{ duration: 1.1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute left-1 sm:left-4 -bottom-3 z-10 w-[160px] sm:w-[200px] h-[220px] sm:h-[260px] rounded-[var(--radius-lg)] bg-white/95 backdrop-blur-md border border-[#E6E2D9] p-3 shadow-lg hidden sm:flex flex-col justify-between"
+              transition={{ duration: 1, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute left-1 sm:left-4 -bottom-3 z-10 w-[160px] sm:w-[200px] rounded-[var(--radius-lg)] bg-white/95 backdrop-blur-md border border-[#E6E2D9] hover:border-[#B89B6A] p-3 shadow-lg hidden sm:block group transition-all"
             >
-              <span className="text-[8px] font-mono font-bold uppercase tracking-wider text-[#686660]">
-                100% STEAM DISTILLED
-              </span>
-              <div className="relative w-full h-[140px] my-auto">
-                <Image
-                  src="/products/images/basil-essential-oil-192-1.jpg"
-                  alt="Basil Essential Oil"
-                  fill
-                  sizes="200px"
-                  className="object-contain p-1"
-                />
-              </div>
-              <p className="font-serif font-bold text-xs text-[#171717] truncate">Basil Essential Oil</p>
+              <Link href="/product/basil-essential-oil-192" className="block">
+                <span className="text-[8px] font-mono font-bold uppercase tracking-wider text-[#686660] block mb-1">
+                  100% STEAM DISTILLED
+                </span>
+                <div className="relative w-full h-[130px] my-1">
+                  <Image
+                    src="/products/images/basil-essential-oil-192-1.jpg"
+                    alt="Basil Essential Oil"
+                    fill
+                    sizes="200px"
+                    className="object-contain p-1 group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="flex items-center justify-between pt-1 border-t border-[#E6E2D9]/70">
+                  <p className="font-serif font-bold text-xs text-[#171717] truncate group-hover:text-[#B89B6A]">Basil Essential Oil</p>
+                  <ArrowUpRight className="w-3 h-3 text-[#686660] group-hover:text-[#171717]" />
+                </div>
+              </Link>
             </motion.div>
 
             {/* Layer 5: Tertiary Product (Offset Right) */}
@@ -395,22 +400,27 @@ export default function HomePage() {
               style={{ y: heroTertiaryY }}
               initial={{ opacity: 0, x: 30, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 0.95 }}
-              transition={{ duration: 1.1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute right-1 sm:right-4 -top-3 z-10 w-[160px] sm:w-[200px] h-[220px] sm:h-[260px] rounded-[var(--radius-lg)] bg-white/95 backdrop-blur-md border border-[#E6E2D9] p-3 shadow-lg hidden sm:flex flex-col justify-between"
+              transition={{ duration: 1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute right-1 sm:right-4 -top-3 z-10 w-[160px] sm:w-[200px] rounded-[var(--radius-lg)] bg-white/95 backdrop-blur-md border border-[#E6E2D9] hover:border-[#B89B6A] p-3 shadow-lg hidden sm:block group transition-all"
             >
-              <span className="text-[8px] font-mono font-bold uppercase tracking-wider text-[#686660]">
-                HIGH FLASHPOINT OIL
-              </span>
-              <div className="relative w-full h-[140px] my-auto">
-                <Image
-                  src="/products/images/bergamot-fragrance-oil-for-candle-making-563-1.jpg"
-                  alt="Bergamot Candle Fragrance"
-                  fill
-                  sizes="200px"
-                  className="object-contain p-1"
-                />
-              </div>
-              <p className="font-serif font-bold text-xs text-[#171717] truncate">Bergamot Candle Oil</p>
+              <Link href="/product/bergamot-fragrance-oil-for-candle-making-563" className="block">
+                <span className="text-[8px] font-mono font-bold uppercase tracking-wider text-[#686660] block mb-1">
+                  HIGH FLASHPOINT OIL
+                </span>
+                <div className="relative w-full h-[130px] my-1">
+                  <Image
+                    src="/products/images/bergamot-fragrance-oil-for-candle-making-563-1.jpg"
+                    alt="Bergamot Candle Fragrance"
+                    fill
+                    sizes="200px"
+                    className="object-contain p-1 group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="flex items-center justify-between pt-1 border-t border-[#E6E2D9]/70">
+                  <p className="font-serif font-bold text-xs text-[#171717] truncate group-hover:text-[#B89B6A]">Bergamot Candle Oil</p>
+                  <ArrowUpRight className="w-3 h-3 text-[#686660] group-hover:text-[#171717]" />
+                </div>
+              </Link>
             </motion.div>
           </div>
         </motion.div>
@@ -607,9 +617,9 @@ export default function HomePage() {
 
           {/* Asymmetric Showcase: 1 Large Left + 2 Stacked Right */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
-            {/* Large Spotlight Product (7 cols) */}
-            <div className="lg:col-span-7 bg-[#FAFAF7] rounded-[var(--radius-xl)] border border-[#E6E2D9] p-6 sm:p-10 flex flex-col justify-between group">
-              <div>
+            {/* Large Spotlight Product (7 cols) - 100% Clickable */}
+            <div className="lg:col-span-7 bg-[#FAFAF7] rounded-[var(--radius-xl)] border border-[#E6E2D9] hover:border-[#B89B6A] p-6 sm:p-10 flex flex-col justify-between group transition-all duration-300 shadow-2xs hover:shadow-md">
+              <Link href={`/product/${featuredLarge?.slug}`} className="block">
                 <div className="flex items-center justify-between mb-3 sm:mb-4">
                   <span className="text-[10px] font-mono font-bold uppercase tracking-widest px-3 py-1 bg-white rounded border border-[#E6E2D9] text-[#B89B6A]">
                     FEATURED 01
@@ -622,9 +632,12 @@ export default function HomePage() {
                 <p className="text-xs sm:text-sm text-[#686660] leading-relaxed max-w-xl font-sans mb-4 sm:mb-6">
                   {featuredLarge?.shortDescription || featuredLarge?.description}
                 </p>
-              </div>
+              </Link>
 
-              <div className="relative w-full h-[220px] sm:h-[300px] my-4 sm:my-6 flex items-center justify-center">
+              <Link
+                href={`/product/${featuredLarge?.slug}`}
+                className="relative w-full h-[220px] sm:h-[300px] my-4 sm:my-6 flex items-center justify-center bg-white/70 rounded-[var(--radius-lg)] border border-[#E6E2D9]/70 overflow-hidden"
+              >
                 {featuredLarge?.images && featuredLarge.images[0] && (
                   <Image
                     src={featuredLarge.images[0]}
@@ -634,25 +647,26 @@ export default function HomePage() {
                     className="object-contain p-3 group-hover:scale-105 transition-transform duration-700"
                   />
                 )}
-              </div>
+              </Link>
 
               <div className="pt-4 sm:pt-6 border-t border-[#E6E2D9] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <span className="font-mono text-xs text-[#686660]">15ml – 5kg Drums Available</span>
                 <Link
                   href={`/product/${featuredLarge?.slug}`}
-                  className="btn-luxury-primary text-xs py-3 px-6 text-center"
+                  className="btn-luxury-primary text-xs py-3 px-6 text-center flex items-center justify-center gap-1.5"
                 >
-                  Inspect Specifications →
+                  Inspect Specifications <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>
 
-            {/* 2 Stacked Companion Products (5 cols) */}
+            {/* 2 Stacked Companion Products (5 cols) - 100% Clickable */}
             <div className="lg:col-span-5 flex flex-col gap-6 sm:gap-8 justify-between">
               {[featuredStacked1, featuredStacked2].map((prod, i) => (
-                <div
+                <Link
                   key={prod?.id || i}
-                  className="bg-[#FAFAF7] rounded-[var(--radius-xl)] border border-[#E6E2D9] p-5 sm:p-6 flex flex-col justify-between flex-1 group"
+                  href={`/product/${prod?.slug}`}
+                  className="bg-[#FAFAF7] rounded-[var(--radius-xl)] border border-[#E6E2D9] hover:border-[#B89B6A] p-5 sm:p-6 flex flex-col justify-between flex-1 group shadow-2xs hover:shadow-md transition-all duration-300 block cursor-pointer"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
@@ -663,15 +677,12 @@ export default function HomePage() {
                         {prod?.name}
                       </h4>
                     </div>
-                    <Link
-                      href={`/product/${prod?.slug}`}
-                      className="p-2 rounded-full bg-white border border-[#E6E2D9] text-[#171717] group-hover:bg-[#171717] group-hover:text-white transition-colors flex-shrink-0"
-                    >
+                    <span className="p-2 rounded-full bg-white border border-[#E6E2D9] text-[#171717] group-hover:bg-[#171717] group-hover:text-white transition-colors flex-shrink-0">
                       <ArrowUpRight className="w-4 h-4" />
-                    </Link>
+                    </span>
                   </div>
 
-                  <div className="relative w-full h-[130px] sm:h-[150px] my-3">
+                  <div className="relative w-full h-[130px] sm:h-[150px] my-3 bg-white/60 rounded-[var(--radius-md)] border border-[#E6E2D9]/60 overflow-hidden flex items-center justify-center">
                     {prod?.images && prod.images[0] && (
                       <Image
                         src={prod.images[0]}
@@ -685,11 +696,11 @@ export default function HomePage() {
 
                   <div className="pt-3 border-t border-[#E6E2D9] flex items-center justify-between text-xs font-mono text-[#686660]">
                     <span>{prod?.sku}</span>
-                    <Link href={`/product/${prod?.slug}`} className="text-[#171717] font-bold hover:underline">
+                    <span className="text-[#171717] font-bold group-hover:text-[#B89B6A] flex items-center gap-1 transition-colors">
                       View Details →
-                    </Link>
+                    </span>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -1054,82 +1065,14 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 11 — CUSTOMER EXPERIENCE: AUTHENTIC TESTIMONIALS */}
-      {/* ========================================================================= */}
-      <section className="py-20 sm:py-28 bg-[#FAFAF7] border-b border-[#E6E2D9]">
-        <div className="container-editorial">
-          <div className="flex items-center justify-between pb-6 border-b border-[#E6E2D9] mb-10 sm:mb-12">
-            <div>
-              <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block mb-1">
-                11 / VERIFIED CLIENTS
-              </span>
-              <h2 className="font-serif text-2xl sm:text-4xl font-bold text-[#171717] tracking-tight">
-                Customer Voices
-              </h2>
-            </div>
-
-            <div className="flex items-center gap-2 sm:gap-3">
-              <span className="font-mono text-xs text-[#686660]">
-                0{activeReviewIdx + 1} / 0{reviews.length}
-              </span>
-              <button
-                onClick={() =>
-                  setActiveReviewIdx((prev) => (prev === 0 ? reviews.length - 1 : prev - 1))
-                }
-                className="p-2 sm:p-2.5 rounded-full border border-[#E6E2D9] bg-white hover:bg-[#FAFAF7] text-[#171717] transition-colors"
-                aria-label="Previous Testimonial"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() =>
-                  setActiveReviewIdx((prev) => (prev === reviews.length - 1 ? 0 : prev + 1))
-                }
-                className="p-2 sm:p-2.5 rounded-full border border-[#E6E2D9] bg-white hover:bg-[#FAFAF7] text-[#171717] transition-colors"
-                aria-label="Next Testimonial"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-
-          {activeReview && (
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeReview.id}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.3 }}
-                className="max-w-3xl mx-auto text-center space-y-4 sm:space-y-6 py-4 sm:py-6"
-              >
-                <p className="font-serif text-xl sm:text-3xl md:text-4xl font-bold text-[#171717] leading-tight italic">
-                  &ldquo;{activeReview.content}&rdquo;
-                </p>
-
-                <div className="pt-2">
-                  <span className="font-sans font-bold text-sm sm:text-base text-[#171717] block">
-                    {activeReview.customerName}
-                  </span>
-                  <span className="font-mono text-xs text-[#B89B6A] tracking-[0.2em] uppercase">
-                    Verified Customer • SenseMe India
-                  </span>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          )}
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 12 — EDITORIAL ACCORDION FAQ */}
+      {/* 11 — EDITORIAL ACCORDION FAQ */}
       {/* ========================================================================= */}
       <section className="py-20 sm:py-28 bg-[#FFFFFF] border-b border-[#E6E2D9]">
         <div className="container-editorial">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12">
             <div className="lg:col-span-5 space-y-3 sm:space-y-4">
               <span className="font-mono text-xs tracking-[0.25em] uppercase text-[#B89B6A] font-bold block">
-                12 / QUESTIONS & GUIDANCE
+                11 / QUESTIONS & GUIDANCE
               </span>
               <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#171717] tracking-tight">
                 Frequently Answered
